@@ -4,9 +4,7 @@ from db import db
 from routes import
 
 app = Flask(__name__)
-app.register_blueprint(fill this with garbage)
-    
-
+app.register_blueprint()
 
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
