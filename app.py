@@ -1,7 +1,7 @@
 from flask import Flask
 from pathlib import Path
 from db import db
-from routes import
+from routes import asdf
 
 app = Flask(__name__)
 app.register_blueprint()
