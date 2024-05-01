@@ -8,7 +8,7 @@ from db import db
 class Customer(db.Model):
     id = mapped_column(Integer, primary_key=True, autoincrement=True)
     name = mapped_column(String(200), nullable=False)
-    email = mapped_column(String(100), nullable=False, unique=True)
+    username = mapped_column(String(100), nullable=False, unique=True)
     password = mapped_column(String(100), nullable=False)
     set = relationship("Flashcard_set", back_populates="customer", cascade="all, delete-orphan")
     
