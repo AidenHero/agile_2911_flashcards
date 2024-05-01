@@ -6,12 +6,30 @@ from datetime import datetime
 from db import db
 
 class Customer(db.Model):
-    id = mapped_column(Integer, primary_key=True)
-    username = db.Column(db.String(250), unique=True, nullable=False)
-    password = db.Column(db.String(250), nullable=False)
+    id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name = mapped_column(String(200), nullable=False)
+    email = mapped_column(String(100), nullable=False, unique=True)
+    password = mapped_column(String(100), nullable=False)
+    set = relationship("Flashcard_set", back_populates="customer", cascade="all, delete-orphan")
+    
+    # def to_json(self):
+    #  return {
+    #      'id': self.id,
+    #      'name': self.name,
+    #      'phone': self.phone,
+    #      'balance': self.balance
+    #      }
 
 class Flashcard_set(db.Model):
-    set_id=mapped_column(Integer, primary_key=True)
+    set_id=mapped_column(Integer, primary_key=True, autoincrement=True)
+    name = mapped_column(String(200), nullable=False)
+    customer_id = mapped_column(Integer, ForeignKey(Customer.id), nullable=False)
+    customer = relationship("Customer", back_populates="set", cascade="all, delete-orphan")
+    card = relationship("Flashcard", back_populates="set", cascade="all, delete-orphan")
 
 class Flashcard(db.Model):
-    flash_id=mapped_column(Integer, primary_key=True)
+    flash_id=mapped_column(Integer, primary_key=True, autoincrement=True)
+    question = mapped_column(String(500), nullable=False)
+    answer = mapped_column(String(500), nullable=False)
+    set_id = mapped_column(Integer, ForeignKey(Flashcard_set.set_id), nullable=False)
+    set = relationship("Flashcard_set", back_populates="card", cascade="all, delete-orphan")
