@@ -6,11 +6,33 @@ from sqlalchemy.sql import functions as func
 import random
 
 def create_customer_database():
-    pass
+    with open("data/customers.csv", newline="") as csvfile:
+        reader = DictReader(csvfile)
+        for row in reader:
+            obj = Customer(name=row['name'], username=row['username'], password=row['password'])
+            db.session.add(obj)
+        db.session.commit()
 
 def create_flashcard_set_database():
-    pass
+    with open("data/flashcard_sets.csv", newline="") as csvfile:
+        reader = DictReader(csvfile)
+        for row in reader:
+            obj = Flashcard_set(name=row['name'], customer_id=int(row['customer_id']))
+            db.session.add(obj)
+        db.session.commit()
 
 def create_flashcard_database():
-    pass
+    with open("data/flashcards.csv", newline="") as csvfile:
+        reader = DictReader(csvfile)
+        for row in reader:
+            obj = Flashcard(question=row['question'], answer=row['answer'], set_id=int(row['set_id']))
+            db.session.add(obj)
+        db.session.commit()
 
+if __name__ == "__main__":
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+        create_customer_database()
+        create_flashcard_set_database()
+        create_flashcard_database()
