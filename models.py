@@ -24,6 +24,7 @@ class Flashcard_set(db.Model):
     set_id=mapped_column(Integer, primary_key=True, autoincrement=True)
     name = mapped_column(String(200), nullable=False)
     customer_id = mapped_column(Integer, ForeignKey(Customer.id), nullable=False)
+    description = mapped_column(String(200), nullable=False)
     customer = relationship("Customer", back_populates="set")
     card = relationship("Flashcard", back_populates="set", cascade="all, delete-orphan")
 
@@ -32,4 +33,10 @@ class Flashcard(db.Model):
     question = mapped_column(String(500), nullable=False)
     answer = mapped_column(String(500), nullable=False)
     set_id = mapped_column(Integer, ForeignKey(Flashcard_set.set_id), nullable=False)
+    tags = mapped_column(String(200), nullable=True)
+    priority = mapped_column(Integer, nullable=True)
+    last_seet = mapped_column(DateTime, nullable=True)
+    last_result = mapped_column(Integer, nullable = True)
+    time_created = mapped_column(DateTime, nullable=False)
+    time_updated = mapped_column(DateTime, nullable=False)
     set = relationship("Flashcard_set", back_populates="card")
