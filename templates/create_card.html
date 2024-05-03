@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 <form method="POST">
+    <h3>Choose a set</h3>
+    {% for set in sets%}
+    <input type="radio" id="{{ set }}" name="card_set" value="{{ set }}" required>
+    <label for="{{ set }}">{{ set }}</label>
+    {% endfor %}
     <label for="card_question">The Question</label>
-    <input type="text" id="card_question" name="card_question">
+    <input type="text" id="card_question" name="card_question" required>
     <label for="card_answer">The Answer</label>
-    <input type="text" id="card_answer" name="card_answer">
+    <input type="text" id="card_answer" name="card_answer" required>
     <label for="submit_card">Submit</label>
-    <input type="submit" id="submit_card" name="submit_card">
+    <input type="submit" id="submit_card" name="submit_card" required>
 </form>
 {% endblock %}
