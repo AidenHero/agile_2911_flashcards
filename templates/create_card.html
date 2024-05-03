@@ -1,4 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-
+<form method="POST">
+    <label for="card_question">The Question</label>
+    <input type="text" id="card_question" name="card_question">
+    <label for="card_answer">The Answer</label>
+    <input type="text" id="card_answer" name="card_answer">
+    <label for="submit_card">Submit</label>
+    <input type="submit" id="submit_card" name="submit_card">
+</form>
 {% endblock %}
