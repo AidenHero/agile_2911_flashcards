@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from db import db
 from models import Customer, Flashcard, Flashcard_set
-
+from sqlalchemy.sql import func
 api_cards_bp = Blueprint('api_cards', __name__)
 
 @api_cards_bp.route('/', methods=["GET"])
@@ -14,11 +14,14 @@ def make_card_screen():
 @api_cards_bp.route('/', methods=["POST"]) # to make new card
 def post_card():
     setIds = db.session.execute(db.select(Flashcard_set.set_id).order_by(Flashcard_set.set_id)).scalars()
-    question = request.form['card_question']
-    answer = request.form['card_answer']
+    addquestion = request.form['card_question']
+    addanswer = request.form['card_answer']
     cardset = request.form['card_set']
 
-    print(question, answer, cardset)
+    card = Flashcard(question=addquestion, answer = addanswer, set_id = cardset, time_created = func.now())
+    db.session.add(card)
+    db.session.commit()
+    print(addquestion, addanswer, cardset)
     return render_template("create_card.html", sets=setIds)
 
 @api_cards_bp.route('/<int:card_id>', methods=["PUT"]) # to update a card (using card_id)
