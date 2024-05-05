@@ -7,3 +7,11 @@ endpoint = Blueprint('pages', __name__)
 @endpoint.route('/')
 def homepage():
     return render_template("home.html")
+
+@endpoint.route('/login')
+def login(): 
+    return render_template("login.html")
+
+@endpoint.route('/register')
+def register(): 
+    return render_template("register.html")

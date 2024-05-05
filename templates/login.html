@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h1> Login </h1>
+<form>
+    <div class="form-group">
+      <label for="loginEmail">Email address</label>
+      <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="loginPassword">Password</label>
+      <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+<p>
+    New? Register 
+    <span>
+        <a href="{{ url_for('pages.register')}}">here</a> 
+        <!-- Creating a link for each customer that shows details. There's a function in app.py that's called "customer_detail". It needs an argument called customer_id, which is defind here -->
+    </span>
+</p>
+{% endblock %}
