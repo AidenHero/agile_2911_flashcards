@@ -2,16 +2,22 @@
 {% extends "base.html" %}
 {% block content %}
 <h1> Register </h1>
-<form>
-    <div class="form-group">
-      <label for="registerEmail">Email address</label>
-      <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+<form method="POST">
+  <div class="form-group">
+    <label for="register_name">Name</label>
+    <input type="text"  id="register_name" name="register_name" placeholder="Name">
+  </div>
+
+  <div class="form-group">
+      <label for="register_username">Username</label>
+      <input type="text" id="register_username" name="register_username" placeholder="Username">
     </div>
+
     <div class="form-group">
-      <label for="registerPassword">Password</label>
-      <input type="password" class="form-control" id="registerPassword" placeholder="Password">
+      <label for="register_password">Password</label>
+      <input type="password" id="register_password" name="register_password" placeholder="Password">
     </div>
+
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
 
@@ -19,7 +25,6 @@
     Already registered? Login at our 
     <span>
         <a href="{{ url_for('pages.login')}}">login page</a> 
-        <!-- Creating a link for each customer that shows details. There's a function in app.py that's called "customer_detail". It needs an argument called customer_id, which is defind here -->
     </span>
 </p>
 {% endblock %}

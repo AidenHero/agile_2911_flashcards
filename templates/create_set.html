@@ -1,4 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-
+<form method="POST">
+    <h3>Create a New Set</h3>
+    <label for="set_name">Set Title</label>
+    <input type="text" id="set_name" name="set_name" required>
+    <label for="set_descript">The Answer</label>
+    <input type="text" id="set_descript" name="set_descript" required>
+    <label for="submit_set">Create</label>
+    <input type="submit" id="submit_set" name="submit_set" required>
+</form>
 {% endblock %}
