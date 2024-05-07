@@ -1,4 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h1> All Sets </h1>
+{% for set in sets %}
+<p>
+    <strong>Set Name:</strong>
+
+    <span>
+        <a href="#"> {{ set.name }} </a> 
+    </span>
+    <span>
+        <a href="#">Edit Set</a> 
+    </span>
+</p>
+{% endfor %}
+
 {% endblock %}

@@ -1,0 +1,5 @@
+.vertical-stack {
+    display: grid;
+    flex-direction: column;
+}
+
