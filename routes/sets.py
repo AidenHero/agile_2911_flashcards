@@ -6,7 +6,8 @@ sets_bp = Blueprint('sets', __name__)
 
 @sets_bp.route('/') # display all sets
 def sets_page():
-    return render_template("sets.html")
+    all_sets = db.session.execute(db.select(Flashcard_set)).scalars()
+    return render_template("sets.html", sets=all_sets)
 
 
 @sets_bp.route('/<int:set_id>') # to display set info (for specific set_id)

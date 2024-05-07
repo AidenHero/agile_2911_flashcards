@@ -10,13 +10,13 @@ def make_set_screen():
     return render_template("create_set.html")
 
 
-# # !! NOT FINISHED YET !! needs customer_id
+# # !! NOT FINISHED YET !! needs dynamic customer_id
 @api_sets_bp.route('/', methods=["POST"]) # to make new set
 def post_set():
     new_set_name = request.form['set_name']
     new_set_descript = request.form['set_descript']
 
-    set = Flashcard_set(name=new_set_name, description=new_set_descript)
+    set = Flashcard_set(name=new_set_name, description=new_set_descript, customer_id=1)
     db.session.add(set)
     db.session.commit()
     print(new_set_name, new_set_descript)
