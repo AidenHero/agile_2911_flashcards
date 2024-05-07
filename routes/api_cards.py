@@ -24,10 +24,28 @@ def post_card():
     print(addquestion, addanswer, cardset)
     return render_template("create_card.html", sets=setIds)
 
-@api_cards_bp.route('/<int:card_id>', methods=["PUT"]) # to update a card (using card_id)
+@api_cards_bp.route('/<int:card_id>/update', methods=["POST"]) # to update a card (using card_id)
 def put_card(card_id):
-    pass
+    updateinfo = request.form
+    card = db.get_or_404(Flashcard, card_id)
+    if updateinfo["new_answer"] == "":
+        new_answer = card.answer
+    else: 
+        new_answer = updateinfo["new_answer"]
 
-@api_cards_bp.route('/<int:card_id>', methods=["POST"]) # to delete a card (using HTML)
+    if updateinfo["new_question"] == "": 
+        new_question = card.question
+    else:
+        new_question = updateinfo["new_question"]
+        
+    card.question = new_question
+    card.answer = new_answer
+    db.session.commit()
+    return [new_question, new_answer]
+
+@api_cards_bp.route('/<int:card_id>/delete', methods=["POST"]) # to delete a card (using HTML)
 def delete_card(card_id):
-    pass
+    card = db.get_or_404(Flashcard, card_id)
+    db.session.delete(card)
+    db.session.commit()
+    return "You deleted that card"

@@ -10,4 +10,5 @@ def cards_page():
 
 @cards_bp.route('/<int:card_id>') # to display card info (for specific card_id)
 def card_detail(card_id):
-    pass
+    card = db.get_or_404(Flashcard, card_id)
+    return render_template("card_details.html", card=card)
