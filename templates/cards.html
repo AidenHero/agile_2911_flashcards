@@ -1,4 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h1> All Cards </h1>
+{% for card in cards %}
+<p>
+    <strong>Set:</strong> <span> {{ card.set.name }} </span>
+    <strong>Question:</strong> <span> {{ card.question }} </span>
+    <strong>Answer:</strong> <span> {{ card.answer }} </span>
+    <span>
+        <a href="#">Edit Card</a> 
+    </span>
+</p>
+{% endfor %}
 {% endblock %}
