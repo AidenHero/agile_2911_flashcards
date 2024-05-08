@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <form method="POST">
+    <h1>Create a New Card</h1>
     <h3>Choose a set</h3>
     {% for set in sets%}
     <input type="radio" id="{{ set }}" name="card_set" value="{{ set }}" required>
