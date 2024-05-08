@@ -23,9 +23,33 @@ def post_set():
     return render_template("create_set.html")
 
 
-@api_sets_bp.route('/<int:set_id>', methods=["PUT"]) # to update a set (using set_id)
+@api_sets_bp.route('/<int:set_id>/update', methods=["GET"]) # set update screen
+def view_update_set(set_id):
+    specific_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == set_id)).scalar()
+    return render_template("update_set.html", set = specific_set)
+
+@api_sets_bp.route('/<int:set_id>/update', methods=["POST"]) # to update a set (using HTML)
 def put_set(set_id):
-    pass
+    updated_name = request.form['updated_name']
+    updated_descrp = request.form['updated_descrp']
+
+    set = db.get_or_404(Flashcard_set, set_id)
+    
+    if updated_name is None:
+        new_name = set.name
+    else: 
+        new_name = updated_name
+
+    if updated_descrp is None: 
+        new_descrip = set.description
+    else:
+        new_descrip = updated_descrp
+        
+    set.name = new_name
+    set.description = new_descrip
+    db.session.commit()
+    return redirect(url_for("sets.sets_page"))
+
 
 @api_sets_bp.route('/<int:set_id>/delete', methods=["POST"]) # to delete a set (using HTML)
 def delete_set(set_id):
