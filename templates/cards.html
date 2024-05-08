@@ -1,4 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-
+{% for card in cards %}
+    <span>
+        <p>{{ card.question }}</p>
+        <p>{{ card.answer }}</p>
+    </span>
+{% endfor %}
 {% endblock %}

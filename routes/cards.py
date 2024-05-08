@@ -6,7 +6,9 @@ cards_bp = Blueprint('cards', __name__)
 
 @cards_bp.route('/') # display all cards
 def cards_page():
-    return render_template("cards.html")
+    cards = db.session.execute(db.select(Flashcard).order_by(Flashcard.flash_id)).scalars()
+    print(cards)
+    return render_template("cards.html", cards = cards)
 
 @cards_bp.route('/<int:card_id>') # to display card info (for specific card_id)
 def card_detail(card_id):
