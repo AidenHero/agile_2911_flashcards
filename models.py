@@ -23,7 +23,7 @@ class Customer(db.Model):
 class Flashcard_set(db.Model):
     set_id=mapped_column(Integer, primary_key=True, autoincrement=True)
     name = mapped_column(String(200), nullable=False)
-    customer_id = mapped_column(Integer, ForeignKey(Customer.id)) # currently nullable b/c we don't have login set up, or else we can't create a set
+    customer_id = mapped_column(Integer, ForeignKey(Customer.id), nullable=False) 
     description = mapped_column(String(200), nullable=True)
     customer = relationship("Customer", back_populates="set")
     card = relationship("Flashcard", back_populates="set", cascade="all, delete-orphan")
