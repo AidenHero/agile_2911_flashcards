@@ -6,7 +6,9 @@
     <input type="text" id="set_name" name="set_name" required>
     <label for="set_descript">Set Description</label>
     <input type="text" id="set_descript" name="set_descript" required>
-    <label for="submit_set">Create</label>
-    <input type="submit" id="submit_set" name="submit_set" required>
+
+    <form method="POST" action="{{ url_for('api_sets.post_set') }}">
+        <button type="submit"> Create </button>
+    </form>
 </form>
 {% endblock %}
