@@ -1,6 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>This is the home page</h1>
-<h3>My name is Aiden</h3>
-<p>and i'm the god damn greatest</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title><img src="path/to/logo.png" alt="Logo"></title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="flashcardsharks-logo">
+            <img src="path/to/logo.png" alt="flashcardsharks logo">
+        </div>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="create_set.html">Create</a>
+
+            {% if user %}
+                <a href="logout.html">Log Out</a>
+            {% else %}
+                <a href="login.html">Log In</a>
+                <a href="register.html">Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% if user %}
+        <div class="user-box">
+            <img src="user_image.jpg" alt="User Image" class="user-image">
+            <h2>{{ username }}</h2>
+        </div>
+
+        <h2>My Sets:</h2>
+
+        <div class="sets">
+            {% for set in user_sets %}
+                <div class="set">
+                    <h3>{{ set.name }}</h3>
+                    <p>{{ set.description }}</p>
+                </div>
+            {% else %}
+                <p>You have no sets</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>
 {% endblock %}
