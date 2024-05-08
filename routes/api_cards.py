@@ -28,6 +28,22 @@ def post_card():
 def put_card(card_id):
     pass
 
-@api_cards_bp.route('/<int:card_id>', methods=["POST"]) # to delete a card (using HTML)
+@api_cards_bp.route("/<int:card_id>/delete", methods=["POST"]) # to delete a card (using HTML)
 def delete_card(card_id):
-    pass
+    card = db.get_or_404(Flashcard_set, card_id) # it either gets the Order instance from the databse, or returns 404 for not found 
+
+    if card is None: # if there's no customer with that ID, return error
+        return "Card not found", 404
+    else: 
+        product_orders = ProductOrder.query.filter_by(order_id=order_id).all()
+        if product_orders is not None: 
+            for each in product_orders:
+                if each.order.processed is None: # check that it's not processed already before allowing to delete 
+                    db.session.delete(each)
+                else: 
+                    return "Order already processed. Cannot delete.", 404
+                
+        # Delete the order
+        db.session.delete(order)
+        db.session.commit()
+        return redirect(url_for("orders.order"))

@@ -9,9 +9,15 @@
     <span>
         <a href="#"> {{ set.name }} </a> 
     </span>
+    
     <span>
         <a href="#">Edit Set</a> 
     </span>
+
+    <form method="POST" action="{{ url_for('api_sets.delete_set', set_id=set.set_id) }}">
+        <button type="submit"> Delete Set {{ set.set_id }} </button>
+    </form>
+
 </p>
 {% endfor %}
 

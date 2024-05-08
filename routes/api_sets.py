@@ -27,6 +27,14 @@ def post_set():
 def put_set(set_id):
     pass
 
-@api_sets_bp.route('/<int:set_id>', methods=["POST"]) # to delete a set (using HTML)
+@api_sets_bp.route('/<int:set_id>/delete', methods=["POST"]) # to delete a set (using HTML)
 def delete_set(set_id):
-    pass
+    set = db.get_or_404(Flashcard_set, set_id) # it either gets the Flashcard_set instance from the databse, or returns 404 for not found 
+
+    if set is None: # if there's no set with that ID, return error
+        return "Set not found", 404
+    else:                 
+        # Delete the order
+        db.session.delete(set)
+        db.session.commit()
+        return redirect(url_for("sets.sets_page"))
