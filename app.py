@@ -7,10 +7,10 @@ app = Flask(__name__)
 bp = Blueprint("html", __name__)
 
 app.register_blueprint(endpoint, url_prefix='/')
-app.register_blueprint(cards_bp, url_prefix='/cards')
-app.register_blueprint(sets_bp, url_prefix='/sets')
-app.register_blueprint(api_cards_bp, url_prefix='/api/cards')
-app.register_blueprint(api_sets_bp, url_prefix='/api/sets')
+app.register_blueprint(cards_bp, url_prefix='/all/cards')
+app.register_blueprint(sets_bp, url_prefix='/all/sets')
+app.register_blueprint(api_cards_bp, url_prefix='/cards')
+app.register_blueprint(api_sets_bp, url_prefix='/sets')
 
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
