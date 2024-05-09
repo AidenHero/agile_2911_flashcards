@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1> All Cards </h1>
+{% for card in cards %}
+<p>
+
+    <strong>Question:</strong> <span> {{ card.question }} </span>
+    <form method="POST">
+    <label for="{{card.flash_id }}">Your answer</label>
+    <input type="text" id=" {{card.flash_id }}" name=" {{card.flash_id }}">
+    <input type="submit">
+    </form>
+
+</p>
+{% endfor %}
+{% endblock %}

@@ -14,3 +14,22 @@ def cards_page():
 def card_detail(card_id):
     card = db.get_or_404(Flashcard, card_id)
     return render_template("card_details.html", card=card)
+
+@cards_bp.route('/answer')
+def answer_cards():
+    all_cards = db.session.execute(db.select(Flashcard)).scalars()
+    print()
+    return render_template("answering_cards.html", cards=all_cards)
+
+@cards_bp.route("/answer", methods=["POST"])
+def to_answer():
+    key = list(request.form.keys())[0]
+    value = request.form[key]
+    intkey = int(key)
+    card = db.get_or_404(Flashcard, intkey)
+    if value == card.answer:
+        print("it was correct")
+    else:
+        print("it was not correct")
+    print(intkey)
+    return ("funky")
