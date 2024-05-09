@@ -5,13 +5,13 @@ from models import Customer, Flashcard, Flashcard_set
 
 api_sets_bp = Blueprint('api_sets', __name__)
 
-@api_sets_bp.route('/', methods=["GET"])
+@api_sets_bp.route('/create', methods=["GET"]) # view create set page
 def make_set_screen():
     return render_template("create_set.html")
 
 
 # # !! NOT FINISHED YET !! needs dynamic customer_id
-@api_sets_bp.route('/', methods=["POST"]) # to make new set
+@api_sets_bp.route('/create', methods=["POST"]) # to make new set
 def post_set():
     new_set_name = request.form['set_name']
     new_set_descript = request.form['set_descript']
@@ -23,7 +23,7 @@ def post_set():
     return render_template("create_set.html")
 
 
-@api_sets_bp.route('/<int:set_id>/update', methods=["GET"]) # set update screen
+@api_sets_bp.route('/<int:set_id>/update', methods=["GET"]) # view update screen
 def view_update_set(set_id):
     specific_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == set_id)).scalar()
     return render_template("update_set.html", set = specific_set)
