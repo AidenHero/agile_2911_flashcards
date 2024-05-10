@@ -7,23 +7,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<nav class="nav-links">
-    <div class="logo">
-        <img src="../static/FLASHCARDSHARKS_LOGO.png" alt="FlashcardSharks Logo">
-    </div>
-    <div class="nav-links-container">
-        <a href="home.html">Home</a>
-        <a href="create_set.html">Create</a>
-    </div>
-    <div class="header-right">
-        <!-- {% if user %} -->
-        <!-- <a href="logout.html">Log Out</a> -->
-        <!-- {% else %} -->
-        <a href="login.html">Log In</a>
-        <a href="register.html">Sign Up</a>
-        <!-- {% endif %} -->
-    </div>
-</nav>
+    <nav class="nav-links">
+        <div class="logo">
+            <img src="../static/FLASHCARDSHARKS_LOGO.png" alt="FlashcardSharks Logo">
+        </div>
+        <!-- <div class="nav-links-container">
+            <a href="home.html">Home</a>
+            <a href="create_set.html">Create</a>
+        </div> -->
+        <div class="header-right">
+            <!-- {% if user %} -->
+            <!-- <a href="logout.html">Log Out</a> -->
+            <!-- {% else %} -->
+            <a href="{{ url_for('pages.login')}}">Log In</a>
+            <a href="{{ url_for('pages.register')}}">Sign Up</a>
+            <!-- {% endif %} -->
+        </div>
+    </nav>
 
 <nav class="secondary-nav">
     <!-- {% if not user %} -->
