@@ -6,7 +6,7 @@ api_cards_bp = Blueprint('api_cards', __name__)
 
 @api_cards_bp.route('/', methods=["GET"])
 def make_card_screen():
-    setIds = db.session.execute(db.select(Flashcard_set.set_id).order_by(Flashcard_set.set_id)).scalars()
+    setIds = db.session.execute(db.select(Flashcard_set).order_by(Flashcard_set.set_id)).scalars()
     print(setIds)
     return render_template("create_card.html", sets=setIds)
 
@@ -22,7 +22,9 @@ def post_card():
     db.session.add(card)
     db.session.commit()
     print(addquestion, addanswer, cardset)
-    return render_template("create_card.html", sets=setIds)
+    # return render_template("create_card.html", sets=setIds)
+    return redirect(url_for('cards.cards_page'))
+
 
 @api_cards_bp.route('/<int:card_id>/update', methods=["POST"]) # to update a card (using card_id)
 def put_card(card_id):
