@@ -3,28 +3,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><img src="../static/FLASHCARDSHARKS_LOGO.png" alt="Logo"></title>
+    <title>Home</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav>
-        <div class="flashcardsharks-logo">
-            <img src="../static/FLASHCARDSHARKS_LOGO.png" alt="flashcardsharks logo">
-        </div>
-        <div class="nav-links">
-            <a href="home.html">Home</a>
-            <a href="create_set.html">Create</a>
+<nav class="nav-links">
+    <div class="logo">
+        <img src="../static/FLASHCARDSHARKS_LOGO.png" alt="FlashcardSharks Logo">
+    </div>
+    <div class="nav-links-container">
+        <a href="home.html">Home</a>
+        <a href="create_set.html">Create</a>
+    </div>
+    <div class="header-right">
+        <!-- {% if user %} -->
+        <!-- <a href="logout.html">Log Out</a> -->
+        <!-- {% else %} -->
+        <a href="login.html">Log In</a>
+        <a href="register.html">Sign Up</a>
+        <!-- {% endif %} -->
+    </div>
+</nav>
 
-            {% if user %}
-                <a href="logout.html">Log Out</a>
-            {% else %}
-                <a href="login.html">Log In</a>
-                <a href="register.html">Sign Up</a>
-            {% endif %}
-        </div>
-    </nav>
+<nav class="secondary-nav">
+    <!-- {% if not user %} -->
+        <a href="register.html">Sign up now</a>
+    <!-- {% endif %} -->
+</nav>
 
-    {% if user %}
+    <!-- <div class="footer">
+        <p>Add stuff later</p>
+    </div> -->
+
+    <!-- {% if user %}
         <div class="user-box">
             <img src="user_image.jpg" alt="User Image" class="user-image">
             <h2>{{ username }}</h2>
@@ -42,7 +53,7 @@
                 <p>You have no sets</p>
             {% endfor %}
         </div>
-    {% endif %}
+    {% endif %} -->
 </body>
 </html>
 {% endblock %}
