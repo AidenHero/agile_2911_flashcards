@@ -4,8 +4,8 @@
     <h1>Create a New Card</h1>
     <h3>Choose a set</h3>
     {% for set in sets%}
-    <input type="radio" id="{{ set }}" name="card_set" value="{{ set }}" required>
-    <label for="{{ set }}">{{ set }}</label>
+    <input type="radio" id="{{ set.set_id }}" name="card_set" value="{{ set.set_id }}" required>
+    <label for="{{ set.set_id }}">{{ set.name }}</label>
     {% endfor %}
     <label for="card_question">The Question</label>
     <input type="text" id="card_question" name="card_question" required>

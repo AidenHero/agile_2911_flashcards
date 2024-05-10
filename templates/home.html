@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home_styles.css') }}">
 </head>
 <body>
 <nav class="nav-links">
@@ -12,7 +12,7 @@
         <img src="../static/FLASHCARDSHARKS_LOGO.png" alt="FlashcardSharks Logo">
     </div>
     <div class="nav-links-container">
-        <a href="home.html">Home</a>
+        <a href="/">Home</a>
         <a href="create_set.html">Create</a>
     </div>
     <div class="header-right">
