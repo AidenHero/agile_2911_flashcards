@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 <span>
-    <p>{{ card.flash_id }}</p>
-    <p>{{ card.question }}</p>
-    <p>{{ card.answer }}</p>
+    <p>
+        <span> <strong>Card ID:</strong> {{ card.flash_id }}  </span>
+    </p>
+    
+    <p>
+        <span> <strong>Question:</strong> {{ card.question }}  </span>
+    </p>
+    
+    <p>
+        <span> <strong>Answer:</strong> {{ card.answer }}  </span>
+    </p>
 </span>
 
 <form action="{{url_for('api_cards.delete_card', card_id = card.flash_id)}}" method="POST">
