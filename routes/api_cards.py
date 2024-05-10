@@ -41,11 +41,14 @@ def put_card(card_id):
     card.question = new_question
     card.answer = new_answer
     db.session.commit()
-    return [new_question, new_answer]
+    return redirect(url_for('cards.cards_page'))
+
+    # return [new_question, new_answer]
 
 @api_cards_bp.route('/<int:card_id>/delete', methods=["POST"]) # to delete a card (using HTML)
 def delete_card(card_id):
     card = db.get_or_404(Flashcard, card_id)
     db.session.delete(card)
     db.session.commit()
-    return "You deleted that card"
+    return redirect(url_for('cards.cards_page'))
+    # return "You deleted that card"
