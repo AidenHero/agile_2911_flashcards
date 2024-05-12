@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <STYLE>
+
+/* Hide the images by default */
+/* .flashcard {
+  display: none;
+} */
+.prev,
+.next {
+  cursor: pointer;
+  /* position: absolute; */
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: orange;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  /* user-select: none;
+  -webkit-user-select: none; */
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+    </STYLE>
+
+    <script>
+    // let asdf = "{{answered_card_id}}"
+    const flashcardDisplay = (n) => {
+        let slides = document.getElementsByClassName("flashcard")
+        
+        if(n > slides.length) {n=1}
+        if(n < 1) {n=slides.length}
+        for( let i = 0; i < slides.length; i++)
+        {
+            slides[i].style.display = "none";
+        }
+        slides[n-1].style.display = "block";
+        document.getElementById("nbutton").addEventListener("click", function () {
+        flashcardDisplay(n+1)      
+    }, {once: true});
+        document.getElementById("pbutton").addEventListener("click", function () {
+        flashcardDisplay(n-1)
+    }, {once: true});
+
+    };
+
+    document.addEventListener("DOMContentLoaded", () =>{
+
+        let thisFlashcard = "{{answered_card_id}}"
+        console.log("this flashcard is {{answered_card_id}}")
+        flashcardDisplay(thisFlashcard)
+    });
+
+
+    </script>
+</head>
+<body>
+    <div class="container">
+    {% for card in cards%}
+    <div class="flashcard">
+        <span>
+            <p>{{card.question}}</p>
+            <form method="POST">
+                <label for="{{card.flash_id }}">Your answer</label>
+                <input type="text" id=" {{card.flash_id }}" name=" {{card.flash_id }}">
+                <input type="submit">
+            </form>
+            {% if card.flash_id == answered_card_id %}
+            <p>{{ answer }}</p>
+            {% endif %}
+        </span>
+    </div>
+    {% endfor %}
+    <a class="prev" id="pbutton" >&#10094;</a>
+    <a class="next" id="nbutton" >&#10095;</a>
+    <!-- <p id="test">for testing purposes</p> -->
+        <!-- <a class="prev" id="pbutton" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" id = "nbutton" onclick="plusSlides(1)">&#10095;</a> -->
+    </div>
+</body>
+</html>

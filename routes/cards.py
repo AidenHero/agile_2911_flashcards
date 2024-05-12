@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, stream_template
 from db import db
 from models import Customer, Flashcard, Flashcard_set
 
@@ -18,18 +18,19 @@ def card_detail(card_id):
 @cards_bp.route('/answer')
 def answer_cards():
     all_cards = db.session.execute(db.select(Flashcard)).scalars()
-    print()
-    return render_template("answering_cards.html", cards=all_cards)
+    return render_template("answering_cards_test.html", cards=all_cards, answered_card_id = 1)
 
 @cards_bp.route("/answer", methods=["POST"])
 def to_answer():
+    all_cards = db.session.execute(db.select(Flashcard)).scalars()
+
     key = list(request.form.keys())[0]
     value = request.form[key]
     intkey = int(key)
     card = db.get_or_404(Flashcard, intkey)
     if value == card.answer:
-        print("it was correct")
+        outcome = "correct"
     else:
-        print("it was not correct")
-    print(intkey)
-    return ("funky")
+        outcome = "wrong"
+    db.session.commit()
+    return stream_template("answering_cards_test.html", cards=all_cards, answered_card_id = card.flash_id, answer = outcome)

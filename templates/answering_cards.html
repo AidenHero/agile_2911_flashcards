@@ -6,6 +6,9 @@
 <p>
 
     <strong>Question:</strong> <span> {{ card.question }} </span>
+    {% if card.flash_id == answered_card_id %}
+        <p>{{ answer }}</p>
+    {% endif %}
     <form method="POST">
     <label for="{{card.flash_id }}">Your answer</label>
     <input type="text" id=" {{card.flash_id }}" name=" {{card.flash_id }}">
