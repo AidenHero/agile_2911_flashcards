@@ -18,7 +18,7 @@ def card_detail(card_id):
 @cards_bp.route('/answer')
 def answer_cards():
     all_cards = db.session.execute(db.select(Flashcard)).scalars()
-    return render_template("answering_cards_test.html", cards=all_cards, answered_card_id = 1)
+    return render_template("answering_cards.html", cards=all_cards, answered_card_id = 1)
 
 @cards_bp.route("/answer", methods=["POST"])
 def to_answer():
@@ -33,4 +33,4 @@ def to_answer():
     else:
         outcome = "wrong"
     db.session.commit()
-    return stream_template("answering_cards_test.html", cards=all_cards, answered_card_id = card.flash_id, answer = outcome)
+    return stream_template("answering_cards.html", cards=all_cards, answered_card_id = card.flash_id, answer = outcome)

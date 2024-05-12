@@ -56,11 +56,9 @@
     }, {once: true});
 
     };
-
     document.addEventListener("DOMContentLoaded", () =>{
-
+        //this is in a seperate variable, because for some reason whenever i tried to use the jinja variable inside flashcardDisplay directly, it freaks out.  
         let thisFlashcard = "{{answered_card_id}}"
-        console.log("this flashcard is {{answered_card_id}}")
         flashcardDisplay(thisFlashcard)
     });
 
