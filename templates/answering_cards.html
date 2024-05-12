@@ -2,6 +2,10 @@
 {% block head %}
 <style>
     /* just copy and pasted the buttons from w3 studio, please make this look pretty */
+    .flashcard{
+        display: none;
+    }
+
     .prev,
     .next {
         cursor: pointer;
@@ -41,7 +45,6 @@
         slides[n - 1].style.display = "block";
 
         // adds an event listener, to actually have the buttons move the flashcard back and forth. Does it inside of the function instead of how w3 did it because global variables are cringe. Once: true deletes the event listener after it has been used, so that there's not multiple event listeners on one button. That breaks the website. 
-        // --BUG FIX-- For some reason, when the page loads and {{answered_card_id}} is one, you have to press nbutton twice to go forward. Every other case, it works fine. This bug is dumb, but unfortunately so am I so I don't know how to fix this. 
         document.getElementById("nbutton").addEventListener("click", function () {
             flashcardDisplay(n + 1)
         }, { once: true });
@@ -52,7 +55,8 @@
     };
     document.addEventListener("DOMContentLoaded", () => {
         //this is in a seperate variable, because for some reason whenever i tried to use the jinja variable inside flashcardDisplay directly, it freaks out.  
-        let thisFlashcard = "{{answered_card_id}}"
+        // + 1, because otherwise i would have to press the forward button twice for it to go forward if the page initally loads on the first flashcard in the passed flashcards 
+        let thisFlashcard = "{{answered_card_id}}" + 1
         flashcardDisplay(thisFlashcard)
     });
 
