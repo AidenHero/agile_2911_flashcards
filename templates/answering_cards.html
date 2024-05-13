@@ -29,7 +29,7 @@
         right: 0;
         border-radius: 3px 0 0 3px;
     }
-</STYLE>
+</style>
 
 <script>
     const flashcardDisplay = (n) => {
@@ -55,9 +55,8 @@
     };
     document.addEventListener("DOMContentLoaded", () => {
         //this is in a seperate variable, because for some reason whenever i tried to use the jinja variable inside flashcardDisplay directly, it freaks out.  
-        // + 1, because otherwise i would have to press the forward button twice for it to go forward if the page initally loads on the first flashcard in the passed flashcards 
-        let thisFlashcard = "{{answered_card_id}}" + 1
-        flashcardDisplay(thisFlashcard)
+        let thisFlashcard = "{{answered_card_id}}" 
+        flashcardDisplay(parseInt(thisFlashcard))
     });
 
 
