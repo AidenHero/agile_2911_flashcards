@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block head %}
+<style>
+    /* just copy and pasted the buttons from w3 studio, please make this look pretty */
+    .flashcard{
+        display: none;
+    }
+
+    .prev,
+    .next {
+        cursor: pointer;
+        /* this made the buttons dissapear?? probably don't need it anyway, but hopefully someone who knows what they're doing can explain */
+        /* position: absolute; */
+        top: 40%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: orange;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        /* removed cause i have no idea what this does, and i'm too lazy to look at it */
+        /* user-select: none;
+-webkit-user-select: none; */
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+</style>
+
+<script>
+    const flashcardDisplay = (n) => {
+        // gets all of the flashcards
+        let slides = document.getElementsByClassName("flashcard")
+        // makese it circular. If its at the end and goes forward, goes back to the start, vice versa
+        if (n > slides.length) { n = 1 }
+        if (n < 1) { n = slides.length }
+        // makes every flashcard invisible, then makes the chosen flashcard visible. Does it this way because monkey brain is too dumb to think of a different way to make only the one flashcard visible 
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[n - 1].style.display = "block";
+
+        // adds an event listener, to actually have the buttons move the flashcard back and forth. Does it inside of the function instead of how w3 did it because global variables are cringe. Once: true deletes the event listener after it has been used, so that there's not multiple event listeners on one button. That breaks the website. 
+        document.getElementById("nbutton").addEventListener("click", function () {
+            flashcardDisplay(n + 1)
+        }, { once: true });
+        document.getElementById("pbutton").addEventListener("click", function () {
+            flashcardDisplay(n - 1)
+        }, { once: true });
+
+    };
+    document.addEventListener("DOMContentLoaded", () => {
+        //this is in a seperate variable, because for some reason whenever i tried to use the jinja variable inside flashcardDisplay directly, it freaks out.  
+        let thisFlashcard = "{{answered_card_id}}" 
+        flashcardDisplay(parseInt(thisFlashcard))
+    });
+
+
+</script>
+{% endblock %}
+{% block content %}
+
+<h1> All Cards </h1>
+    <div class="container">
+        {% for card in cards%}
+        <div class="flashcard">
+            <span>
+                <p>{{card.question}}</p>
+                <form method="POST">
+                    <label for="{{card.flash_id }}">Your answer</label>
+                    <input type="text" id=" {{card.flash_id }}" name=" {{card.flash_id }}">
+                    <input type="submit">
+                </form>
+                {% if card.flash_id == answered_card_id %}
+                <p>{{ answer }}</p>
+                {% endif %}
+            </span>
+        </div>
+        {% endfor %}
+        <a class="prev" id="pbutton">&#10094;</a>
+        <a class="next" id="nbutton">&#10095;</a>
+    </div>
+{% endblock %}
