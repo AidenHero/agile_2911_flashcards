@@ -15,21 +15,21 @@
     </div>
     <div class="nav-links-container">
         <a href="/">Home</a>
-        <a href="create_set.html">Create</a>
+        <a href="{{ url_for('api_sets.post_set') }}">Create</a>
     </div>
     <div class="header-right">
-        <!-- {% if user %} -->
-        <!-- <a href="logout.html">Log Out</a> -->
-        <!-- {% else %} -->
-        <a href="login.html">Log In</a>
-        <a href="register.html">Sign Up</a>
-        <!-- {% endif %} -->
+        {% if user %}
+        <a href="logout.html">Log Out</a>
+        {% else %}
+        <a href="{{ url_for('pages.login')}}">Log In</a>
+        <a href="{{ url_for('pages.register')}}">Sign Up</a>
+        {% endif %}
     </div>
 </nav>
 
 <nav class="secondary-nav">
     <!-- {% if not user %} -->
-        <a href="register.html">Sign up now</a>
+        <a href="{{ url_for('pages.register')}}">Sign up now</a>
     <!-- {% endif %} -->
 </nav>
 
