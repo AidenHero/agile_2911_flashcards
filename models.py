@@ -2,14 +2,15 @@ from sqlalchemy import Float, Numeric, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import mapped_column, relationship
 from sqlalchemy.sql import functions as func
 from datetime import datetime
+from flask_login import UserMixin
 
 from db import db
 
-class Customer(db.Model):
+class Customer(UserMixin, db.Model):
     id = mapped_column(Integer, primary_key=True, autoincrement=True)
     name = mapped_column(String(200), nullable=False)
-    username = mapped_column(String(100), nullable=False, unique=True)
-    password = mapped_column(String(100), nullable=False)
+    username = mapped_column(String(250), nullable=False, unique=True)
+    password = mapped_column(String(250), nullable=False)
     set = relationship("Flashcard_set", back_populates="customer", cascade="all, delete-orphan")
     
     # def to_json(self):
