@@ -4,6 +4,8 @@
 <html>
 <head>
     <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='home_styles.css') }}">
 </head>
 <body>
@@ -31,6 +33,19 @@
     <!-- {% endif %} -->
 </nav>
 
+<main>
+<section id="WelcometoHomepage">
+    <div class="overlay">
+        <h1 class="one"> 
+            WELCOME TO  <br> FLASHCARD SHARKS <br>
+        </h1>
+        <p>Flashcards to ace your tests.</p>
+        <button class="big-signup">
+            SIGN UP NOW
+        </button>
+    </div>
+</section>
+
     <!-- <div class="footer">
         <p>Add stuff later</p>
     </div> -->
@@ -54,6 +69,7 @@
             {% endfor %}
         </div>
     {% endif %} -->
+</main>
 </body>
 </html>
 {% endblock %}
