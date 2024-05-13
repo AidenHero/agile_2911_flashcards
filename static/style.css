@@ -1,6 +1,0 @@
-.vertical-stack {
-    display: grid;
-    flex-direction: column;
-}
-
-body {background-color: lightgrey}
