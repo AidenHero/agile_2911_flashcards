@@ -4,7 +4,7 @@
 }
 
  body {
-  background-image: url('vector.jpg'); 
+  background-image: url('underwater-ocean.jpg'); 
   background-repeat: no-repeat;
   background-size: cover; 
   
@@ -159,50 +159,64 @@ header li a {
  background-image: url('vector.jpg');  #we can have another cropped image here
 } */
 
+
 .overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: var(--white);
   height: 1000px;
   width: 100%;
+  text-align: center;
 }
 
 .overlay > h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
   padding: 50px;
   font-size: 50px;
   font-weight: 700;
   display: flex;
   justify-content: flex-start;
-  margin-left: 5rem;
-  margin-top: 10rem;
 }
 
 .overlay > p {
   font-size: 30px;
-  margin-left: 8.3rem;
+  margin: 10px 0;
   margin-top: -6rem;
-
 }
 
 .big-signup {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
   border: 1px solid white;
   background-color: hsl(var(--transparent-blue)0);
   color: var(--white);
-  margin: 10rem;
+  margin: 10px 0;
   padding: 2rem;
   font-size: 35px;
   display: flex;
   justify-content: flex-start;
-  margin-left: 8rem;
-  background-color: rgb(22, 96, 207);
-  border: 2px solid #000f1f;
+
+  background-color: rgb(65, 90, 128);
+  border: 2px solid #bfbfbf;
   border-radius: 10px;
-
-
   transition: background-color 0.3s, transform 0.3s;
+}
 
+.big-signup a {
+  text-decoration: none;
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0 10px;
 }
 
 .big-signup:hover {
   background-color: #000f1f;
   transform: translateX(1%) scale(1.1);
 }
+
 
