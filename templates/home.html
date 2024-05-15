@@ -22,14 +22,14 @@
         <a href="logout.html">Log Out</a>
         {% else %}
         <a href="{{ url_for('pages.login')}}">Log In</a>
-        <a href="{{ url_for('pages.register')}}">Sign Up</a>
+        <a href="{{ url_for('pages.show_register_page')}}">Sign Up</a>
         {% endif %}
     </div>
 </nav>
 
 <nav class="secondary-nav">
     <!-- {% if not user %} -->
-        <a href="{{ url_for('pages.register')}}">Sign up now</a>
+        <a href="{{ url_for('pages.show_register_page')}}">Sign up now</a>
     <!-- {% endif %} -->
 </nav>
 
