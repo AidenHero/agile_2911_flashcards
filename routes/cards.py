@@ -32,5 +32,4 @@ def to_answer():
         outcome = "correct"
     else:
         outcome = "wrong"
-    print(card.flash_id)
     return stream_template("answering_cards.html", cards=all_cards, answered_card_id = card.flash_id, answer = outcome)

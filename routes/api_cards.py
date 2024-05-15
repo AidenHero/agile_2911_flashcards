@@ -14,6 +14,12 @@ def make_card_screen():
 @api_cards_bp.route('/', methods=["POST"]) # to make new card
 def post_card():
     setIds = db.session.execute(db.select(Flashcard_set.set_id).order_by(Flashcard_set.set_id)).scalars()
+
+    req_values = ['card_question', 'card_answer', 'card_set']
+
+    for value in req_values:
+        if value not in request.form:
+            return f"Missing data: {value}", 400
     addquestion = request.form['card_question']
     addanswer = request.form['card_answer']
     cardset = request.form['card_set']
@@ -43,7 +49,7 @@ def put_card(card_id):
     card.question = new_question
     card.answer = new_answer
     db.session.commit()
-    return redirect(url_for('cards.cards_page'))
+    return redirect(url_for('cards.cards_page')), 302
 
     # return [new_question, new_answer]
 
