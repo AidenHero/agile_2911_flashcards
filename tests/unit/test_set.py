@@ -4,13 +4,16 @@ from db import db
 from app import app
 from sqlalchemy.exc import IntegrityError
 
-def test_validate_new_set():
-    new_set = Flashcard_set(
+@pytest.fixture(scope="module")
+def new_set(): 
+    new_set2 = Flashcard_set(
         set_id=15,
         name="Trial Set",
         customer_id=1
     )
+    return new_set2
 
+def test_validate_new_set(new_set):
     with app.app_context():
         db.session.add(new_set)
         db.session.commit()

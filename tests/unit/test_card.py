@@ -4,14 +4,17 @@ from db import db
 from app import app
 from sqlalchemy.exc import IntegrityError
 
-def test_validate_new_card():
-    new_card = Flashcard(
+@pytest.fixture(scope="module")
+def new_card():
+    new_card2 = Flashcard(
         flash_id=15,
         question="How to set up a trial card?",
         answer="Trial answer", 
         set_id=1
     )
+    return new_card2
 
+def test_validate_new_card(new_card):
     with app.app_context():
         db.session.add(new_card)
         db.session.commit()

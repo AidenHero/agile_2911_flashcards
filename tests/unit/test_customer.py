@@ -4,14 +4,17 @@ from db import db
 from app import app
 from sqlalchemy.exc import IntegrityError
 
-def test_validate_new_customer():
-    new_cust = Customer(
+@pytest.fixture(scope="module")
+def new_cust(): 
+    new_cust2 = Customer(
         id=15,
         name="Mary Test",
         username="Mary_Test",
         password="Hello123"
     )
+    return new_cust2
 
+def test_validate_new_customer(new_cust):
     with app.app_context():
         db.session.add(new_cust)
         db.session.commit()
