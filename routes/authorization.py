@@ -8,8 +8,10 @@ authorization_bp = Blueprint("authorization", __name__)
 
 @authorization_bp.route('/login', methods=["POST"])
 def login_auth():
-    user = db.session.query(Customer).filter_by(username=request.form["loginusername"]).first()
-    print(user)
+    user = Customer.query.filter_by(username=request.form.get("loginusername")).first()
+    if user == None:
+        usererror="That user did not exist"
+        return render_template("login.html", usererror=usererror)
     # if user.password and request.form.get("loginPassword"): 
     if user.password == request.form.get("loginPassword"):
         login_user(user)

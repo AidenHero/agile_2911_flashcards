@@ -30,4 +30,7 @@
 {% endif %}
 
 <h1>{{ current_user.name }}</h1>
+{% if usererror %}
+<h1>{{ usererror }}</h1>
+{% endif %}
 {% endblock %}
