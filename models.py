@@ -13,13 +13,13 @@ class Customer(UserMixin, db.Model):
     password = mapped_column(String(250), nullable=False)
     set = relationship("Flashcard_set", back_populates="customer", cascade="all, delete-orphan")
     
-    # def to_json(self):
-    #  return {
-    #      'id': self.id,
-    #      'name': self.name,
-    #      'phone': self.phone,
-    #      'balance': self.balance
-    #      }
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'phone': self.phone,
+            'balance': self.balance
+        }
 
 class Flashcard_set(db.Model):
     set_id=mapped_column(Integer, primary_key=True, autoincrement=True)

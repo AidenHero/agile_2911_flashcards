@@ -2,22 +2,19 @@ from flask import url_for, render_template, request, Blueprint, redirect, sessio
 from db import db
 from models import Customer
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 
 authorization_bp = Blueprint("authorization", __name__)
 
 @authorization_bp.route('/login', methods=["POST"])
 def login_auth():
-    data = request.form.to_dict()
-    print(data)
-    print(request.form.get("loginusername"))
-    user = Customer.query.filter_by(username=request.form.get("loginusername")).first()
+    user = db.session.query(Customer).filter_by(username=request.form["loginusername"]).first()
     print(user)
     # if user.password and request.form.get("loginPassword"): 
     if user.password == request.form.get("loginPassword"):
         login_user(user)
         return redirect(url_for("pages.homepage"))
-    return render_template("login.html")
+    return redirect(url_for("pages.login"))
 
 
 @authorization_bp.route('/register', methods=["POST"])

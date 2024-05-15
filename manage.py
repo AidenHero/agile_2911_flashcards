@@ -6,9 +6,10 @@ from sqlalchemy.sql import functions as func
 import random
 
 def create_customer_database():
-    with open("data/customers.csv", newline="") as csvfile:
+    with open("data/customers.csv", 'r') as csvfile:
         reader = DictReader(csvfile)
-        for row in reader:
+        reader1=(list(reader))
+        for row in reader1:
             obj = Customer(name=row['name'], username=row['username'], password=row['password'])
             db.session.add(obj)
         db.session.commit()
@@ -28,6 +29,10 @@ def create_flashcard_database():
             obj = Flashcard(question=row['question'], answer=row['answer'], set_id=int(row['set_id']))
             db.session.add(obj)
         db.session.commit()
+
+# def drop_table():
+#     with app.app_context():
+#         db.drop_all()
 
 if __name__ == "__main__":
     with app.app_context():
