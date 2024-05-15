@@ -4,7 +4,7 @@ from db import db
 from app import app
 from sqlalchemy.exc import IntegrityError
 
-def test_validate_new_customer():
+def test_validate_new_set():
     new_set = Flashcard_set(
         set_id=15,
         name="Trial Set",
