@@ -11,7 +11,9 @@
 <body>
 <nav class="nav-links">
     <div class="logo">
+        <a href="/">
         <img src="../static/FLASHCARDSHARKS_LOGO.png" alt="FlashcardSharks Logo">
+        </a>
     </div>
     <div class="nav-links-container">
         <a href="/">Home</a>
@@ -28,9 +30,7 @@
 </nav>
 
 <nav class="secondary-nav">
-    <!-- {% if not user %} -->
         <a href="{{ url_for('pages.register')}}">Sign up now</a>
-    <!-- {% endif %} -->
 </nav>
 
 <main>
@@ -45,30 +45,6 @@
         </button>
     </div>
 </section>
-
-    <!-- <div class="footer">
-        <p>Add stuff later</p>
-    </div> -->
-
-    <!-- {% if user %}
-        <div class="user-box">
-            <img src="user_image.jpg" alt="User Image" class="user-image">
-            <h2>{{ username }}</h2>
-        </div>
-
-        <h2>My Sets:</h2>
-
-        <div class="sets">
-            {% for set in user_sets %}
-                <div class="set">
-                    <h3>{{ set.name }}</h3>
-                    <p>{{ set.description }}</p>
-                </div>
-            {% else %}
-                <p>You have no sets</p>
-            {% endfor %}
-        </div>
-    {% endif %} -->
 </main>
 </body>
 </html>

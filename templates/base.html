@@ -9,14 +9,14 @@
     </head>
     <body>
         <div class="container">
-        <nav class="horizontol-nav">
-            <a href="/">Home</a>
-            <a href="{{ url_for('sets.sets_page')}}">All Sets</a>
-            <a href="{{ url_for('cards.cards_page')}}">All Cards</a>
-            <a href="{{ url_for('api_sets.post_set')}}">Create a Set</a>
-            <a href="{{ url_for('api_cards.post_card')}}">Create a Card</a>
-            <a href="{{ url_for('cards.answer_cards')}}">Answer the cards</a>
-        </nav>
+            <nav class="horizontol-nav">
+                <a href="/"><img src="{{ url_for('static', filename='FLASHCARDSHARKS_LOGO.png') }}" alt="FlashcardSharks Logo"></a>
+                <a href="{{ url_for('sets.sets_page')}}">All Sets</a>
+                <a href="{{ url_for('cards.cards_page')}}">All Cards</a>
+                <a href="{{ url_for('api_sets.post_set')}}">Create a Set</a>
+                <a href="{{ url_for('api_cards.post_card')}}">Create a Card</a>
+                <a href="{{ url_for('cards.answer_cards')}}">Answer the cards</a>
+            </nav>
         {% block content %}
         {% endblock %}
         </div>

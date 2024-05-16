@@ -11,8 +11,13 @@ body {
     background-image: url('ocean.jpg'); 
     background-repeat: no-repeat;
     background-size: cover; 
-  overflow: hidden;
+    overflow: hidden;
+    overflow-y: auto;
+}
 
+.horizontol-nav img {
+    width: 200px;
+    height: auto;
 }
 
 ::selection {
@@ -44,7 +49,6 @@ body {
 
 .login_container::before {
     content: "";
-    position: absolute;
     top: -50px;
     left: -50px;
     right: -50px;
