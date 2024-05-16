@@ -5,34 +5,13 @@ import pytest
 from flask_login import login_user, login_required
 
 
-# @pytest.fixture(scope="module")
-# def logged_in_user(): 
-#     with app.test_client() as test_client:
-#         response = test_client.post("/login", data = {
-#             'loginusername': "AidenHero",
-#             'loginPassword': "aiden123"
-#         })
-    
-#         user = db.session.execute(db.select(Customer).where(Customer.username == "AidenHero")).scalar()
-#         print(user)
-#         # print("testing")
-#         login_user(user)
-#         return user
-
-#         # yield app.test_client()
-
-def test_display_sets_page(): # checks if the page displays
-
-    # login_user(logged_in_user)
-    # print(logged_in_user)
-    # login_user(logged_in_user)
+def test_display_sets_page(): # checks if the all sets page displays
     with app.test_client() as test_client:
         test_client.post("/login", data = {
             'loginusername': "AidenHero",
             'loginPassword': "aiden123"
         })
-        # user = db.session.execute(db.select(Customer).where(Customer.username == "AidenHero")).scalar()
-        # login_user(user)
+
         response = test_client.get("/all/sets/")
         assert response.status_code == 200
         assert b'All Sets' in response.data
@@ -59,7 +38,6 @@ def test_display_sets_update_page(): # checks if the update set page displays
             'loginusername': "AidenHero",
             'loginPassword': "aiden123"
         })
-        
         response = test_client.get("/sets/1/update")
         retrieved_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == 1)).scalar()
    
@@ -76,7 +54,7 @@ def test_create_set_post(): # checks if set posts successfully
             'loginusername': "AidenHero",
             'loginPassword': "aiden123"
         })
-        
+
         response = test_client.post("/sets/create", data = {
             'set_name': "Test Set Name",
             'set_descript': 'Test Set Description',

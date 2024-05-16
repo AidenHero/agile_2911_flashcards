@@ -4,7 +4,7 @@ from db import db
 from app import app
 from sqlalchemy.exc import IntegrityError
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="module") # fixture for a new card
 def new_card():
     new_card2 = Flashcard(
         flash_id=15,
@@ -14,7 +14,7 @@ def new_card():
     )
     return new_card2
 
-def test_validate_new_card(new_card):
+def test_validate_new_card(new_card): # test if new card is added correctly 
     with app.app_context():
         db.session.add(new_card)
         db.session.commit()
@@ -29,7 +29,7 @@ def test_validate_new_card(new_card):
         db.session.delete(retrieved_card)
         db.session.commit()
 
-def test_validate_new_card_missing_inputs():        
+def test_validate_new_card_missing_inputs():  # checks that you cannot create a new card with missing info      
     with pytest.raises(IntegrityError):
         new_card = Flashcard() # missing input data 
         with app.app_context():

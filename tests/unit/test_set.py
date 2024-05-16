@@ -13,7 +13,7 @@ def new_set():
     )
     return new_set2
 
-def test_validate_new_set(new_set):
+def test_validate_new_set(new_set): # check new set is made correctly 
     with app.app_context():
         db.session.add(new_set)
         db.session.commit()
@@ -22,16 +22,23 @@ def test_validate_new_set(new_set):
     assert retrieved_set.set_id == 15
     assert retrieved_set.name == "Trial Set"
     assert retrieved_set.customer_id == 1
+    # assert retrieved_set.customer.username == "AidenHero"
 
     with app.app_context():
         db.session.delete(retrieved_set)
         db.session.commit()
 
-def test_validate_new_set_missing_inputs():        
+def test_validate_new_set_missing_info(): # checks cannot add new set with missing info
     with pytest.raises(IntegrityError):
         new_set = Flashcard_set() # missing input data 
         with app.app_context():
             db.session.add(new_set)
             db.session.commit()
 
+def test_validate_new_set_missing_name(): # checks cannot add new set with missing set name  
+    with pytest.raises(IntegrityError):
+        new_set = Flashcard_set(set_id=15,customer_id=1) # missing input data 
+        with app.app_context():
+            db.session.add(new_set)
+            db.session.commit()
 

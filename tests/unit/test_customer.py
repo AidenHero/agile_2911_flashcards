@@ -4,7 +4,38 @@ from db import db
 from app import app
 from sqlalchemy.exc import IntegrityError
 
-@pytest.fixture(scope="module")
+
+def test_validate_new_customer_missing_inputs():# checks cannot add customer with missing inputs
+    with pytest.raises(IntegrityError):
+        new_cust = Customer() # missing input data 
+        with app.app_context():
+            db.session.add(new_cust)
+            db.session.commit()
+
+def test_validate_new_customer_missing_name():# checks cannot add customer with missing name
+    with pytest.raises(IntegrityError):
+        new_cust = Customer(
+            id=15,
+            username="Mary_Test",
+            password="Hello123"
+        )
+        with app.app_context():
+            db.session.add(new_cust)
+            db.session.commit()
+
+def test_validate_new_customer_duplicate_username(): # cannot add customer with duplicate username
+    with pytest.raises(IntegrityError):
+        new_cust = Customer(
+            name="Aiden",
+            username="AidenHero", # duplicate
+            password="Hello123"
+        )
+        with app.app_context():
+            db.session.add(new_cust)
+            db.session.commit()
+
+
+@pytest.fixture(scope="module") # fixture for new customer
 def new_cust(): 
     new_cust2 = Customer(
         id=15,
@@ -14,7 +45,7 @@ def new_cust():
     )
     return new_cust2
 
-def test_validate_new_customer(new_cust):
+def test_validate_new_customer(new_cust): # checks a new customer gets added correctly 
     with app.app_context():
         db.session.add(new_cust)
         db.session.commit()
@@ -28,11 +59,5 @@ def test_validate_new_customer(new_cust):
         db.session.delete(retrieved_cust)
         db.session.commit()
 
-def test_validate_new_customer_missing_inputs():
-    with pytest.raises(IntegrityError):
-        new_cust = Customer() # missing input data 
-        with app.app_context():
-            db.session.add(new_cust)
-            db.session.commit()
 
 
