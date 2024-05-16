@@ -10,6 +10,6 @@ def sets_page():
     return render_template("sets.html", sets=all_sets)
 
 
-@sets_bp.route('/<int:set_id>') # to display set info (for specific set_id)
-def set_detail(set_id):
-    pass
+# @sets_bp.route('/<int:set_id>') # to display set info (for specific set_id)
+# def set_detail(set_id):
+#     pass
