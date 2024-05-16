@@ -4,12 +4,16 @@ from models import Customer, Flashcard, Flashcard_set
 from csv import DictReader
 from sqlalchemy.sql import functions as func
 import random
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 def create_customer_database():
-    with open("data/customers.csv", newline="") as csvfile:
+    with open("data/customers.csv", 'r') as csvfile:
         reader = DictReader(csvfile)
-        for row in reader:
-            obj = Customer(name=row['name'], username=row['username'], password=row['password'])
+        reader1=(list(reader))
+        for row in reader1:
+            hashed_password = generate_password_hash(row['password'])
+            obj = Customer(name=row['name'], username=row['username'], password=hashed_password)
             db.session.add(obj)
         db.session.commit()
 
@@ -28,6 +32,10 @@ def create_flashcard_database():
             obj = Flashcard(question=row['question'], answer=row['answer'], set_id=int(row['set_id']))
             db.session.add(obj)
         db.session.commit()
+
+# def drop_table():
+#     with app.app_context():
+#         db.drop_all()
 
 if __name__ == "__main__":
     with app.app_context():
