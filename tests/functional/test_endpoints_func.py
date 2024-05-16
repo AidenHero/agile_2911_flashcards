@@ -1,6 +1,7 @@
 from app import app
 from db import db
 from models import Customer
+from werkzeug.security import check_password_hash
 
 def test_display_homepage(): # checks if the homepage displays
     with app.test_client() as test_client:
@@ -35,8 +36,8 @@ def test_register_post(): # checks if register posts successfully
         retrieved_customer = db.session.execute(db.select(Customer).where(Customer.username == "Test Username")).scalar()
         assert retrieved_customer.name == "Test Name" 
         assert retrieved_customer.username == "Test Username"
-        assert retrieved_customer.password == "Test Password"
-        assert response.status_code == 200
+        assert check_password_hash(retrieved_customer.password, 'Test Password')
+        assert response.status_code == 302
 
         db.session.delete(retrieved_customer)
         db.session.commit()
