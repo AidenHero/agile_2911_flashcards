@@ -23,12 +23,19 @@ def card_detail(card_id):
 @cards_bp.route('/answer')
 @login_required
 def answer_cards():
-    all_cards = db.session.execute(db.select(Flashcard)).scalars()
-    return render_template("answering_cards.html", cards=all_cards, answered_card_id = 1)
+    user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id=current_user.id).all()
+    user_set_ids = [set_id for (set_id,) in user_set_ids]
+    user_cards = db.session.query(Flashcard).filter(Flashcard.set_id.in_(user_set_ids)).all()
+    # all_cards = db.session.execute(db.select(Flashcard)).scalars()
+    return render_template("answering_cards.html", cards=user_cards, answered_card_id = 1)
 
 @cards_bp.route("/answer", methods=["POST"])
 @login_required
 def to_answer():
+    # user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id=current_user.id).all()
+    # user_set_ids = [set_id for (set_id,) in user_set_ids]
+    # user_cards = db.session.query(Flashcard).filter(Flashcard.set_id.in_(user_set_ids)).all()
+    
     all_cards = db.session.execute(db.select(Flashcard)).scalars()
 
     key = list(request.form.keys())[0]
