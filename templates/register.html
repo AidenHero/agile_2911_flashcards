@@ -1,6 +1,10 @@
 
 {% extends "base.html" %}
 {% block content %}
+<div class = "register_container">
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='register_styles.css') }}">
+</head>
 <h1> Register </h1>
 <form method="POST">
   <div class="form-group">
@@ -27,4 +31,10 @@
         <a href="{{ url_for('pages.login')}}">login page</a> 
     </span>
 </p>
+
+{% if usererror %}
+<h2>{{ usererror }}</h2>
+{% endif %}
+
+</div>
 {% endblock %}

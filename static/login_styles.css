@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-image: url('ocean.jpg'); 
+    background-repeat: no-repeat;
+    background-size: cover; 
+  overflow: hidden;
+
+}
+
+::selection {
+  background: rgb(93, 129, 163);
+}
+
+.login_container {
+  max-width: 500px;
+  padding: 0 20px;
+  margin: 170px auto;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding-bottom: 20px;
+}
+
+.login_container h1 {
+    height: 90px;
+    background: rgb(93, 129, 163);
+    margin: -21px -21px 0px -21px;
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_container::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    right: -50px;
+    bottom: -50px;
+    background-color: rgb(93, 129, 163);
+    z-index: -1;
+    border-radius: 10px;
+    opacity: 0.5;
+}
+
+.login_container form {
+    padding: 30px 25px 25px 25px;
+}
+
+.login_container .form-group {
+    margin-bottom: 20px;
+}
+
+.login_container .form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login_container .form-group input {
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.login_container .form-group input:focus {
+    border-color: rgb(93, 129, 163);
+    box-shadow: inset 0px 0px 2px 2px rgba(30, 71, 126, 0.25);
+}
+
+.login_container .form-group input::placeholder {
+    color: #999;
+}
+
+.login_container button[type="submit"] {
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    background: rgb(93, 129, 163);
+    border: 1px solid rgb(93, 129, 163);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login_container button[type="submit"]:hover {
+    background: rgb(58, 81, 102);
+}
+
+.login_container p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login_container p span a {
+    color: rgb(93, 129, 163);
+    text-decoration: none;
+}
+
+.login_container p span a:hover {
+    text-decoration: underline;
+}

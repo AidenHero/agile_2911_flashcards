@@ -1,16 +1,20 @@
-
 {% extends "base.html" %}
 {% block content %}
+<div class="login_container">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login_styles.css') }}">
+</head>
 <h1> Login </h1>
 <form method="POST">
     <div class="form-group">
-      <label for="loginusername">Username</label>
-      <input type="username" class="form-control" id="loginusername" placeholder="Enter username">
+        <label for="loginusername"> <i class="fas fa-user"></i> Username</label>
+        <input type="username" class="form-control" id="loginusername" placeholder="Enter username" name="loginusername">
     </div>
 
     <div class="form-group">
-      <label for="loginPassword">Password</label>
-      <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+        <label for="loginPassword"> <i class="fas fa-lock"></i> Password</label>
+        <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword">
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
@@ -18,8 +22,21 @@
 <p>
     New? Register 
     <span>
-        <a href="{{ url_for('pages.register')}}">here</a> 
+        <a href="{{ url_for('pages.show_register_page')}}">here</a> 
   
     </span>
 </p>
+
+{% if current_user.is_authenticated %}
+<h1>You are logged in as</h1>
+<h1>{{ current_user.name }}</h1>
+{% else %}
+<h1>You are not logged in</h1>
+{% endif %}
+
+{% if usererror %}
+<h2>{{ usererror }}</h2>
+{% endif %}
+
 {% endblock %}
+</div>
