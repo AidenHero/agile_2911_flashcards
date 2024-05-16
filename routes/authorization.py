@@ -29,3 +29,8 @@ def register_auth():
         db.session.commit()
         return redirect(url_for('pages.login'))
     return render_template("pages.show_register_page")
+
+@authorization_bp.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('pages.login'))

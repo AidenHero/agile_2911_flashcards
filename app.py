@@ -20,7 +20,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 app.config["SECRET_KEY"] = "flashcardsharks"
 app.instance_path = Path("data").resolve()
 login_manager = LoginManager()
-login_manager.login_view="authorization.login"
+login_manager.login_view="authorization.login_auth"
 login_manager.init_app(app)
 db.init_app(app)
 
