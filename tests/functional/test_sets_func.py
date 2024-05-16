@@ -1,6 +1,7 @@
 from app import app
 from db import db
 from models import Flashcard_set
+import pytest
 
 def test_display_sets_page(): # checks if the page displays
     with app.test_client() as test_client:
@@ -44,3 +45,36 @@ def test_create_set_post(): # checks if set posts successfully
 
         db.session.delete(retrieved_set)
         db.session.commit()
+
+def test_update_and_delete_set_post(): # checks if set updates and deletes successfully 
+    with app.test_client() as test_client:
+        with app.app_context():
+            new_set = Flashcard_set(set_id=88, name="Testing Set", customer_id=1, description="Testing Set Description")
+            db.session.add(new_set)
+            db.session.commit()
+
+        response = test_client.post("sets/88/update", data = { # update set
+            'updated_name': "New Test Set Name",
+            'updated_descrp': 'New Test Set Description',
+        })
+        retrieved_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == 88)).scalar()
+
+        assert retrieved_set.name == "New Test Set Name" 
+        assert retrieved_set.description == "New Test Set Description"
+        assert response.status_code == 302
+
+        
+        response = test_client.post("sets/88/update") # update set without new inputs. Make sure it's still the input from before
+
+        retrieved_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == 88)).scalar()
+
+        assert retrieved_set.name == "New Test Set Name" 
+        assert retrieved_set.description == "New Test Set Description"
+
+
+        response = test_client.post("sets/88/delete")  # delete set
+        assert response.status_code == 302
+        assert retrieved_set.description == "New Test Set Description"
+
+        response = test_client.post("sets/8888/delete")  # nonexistant
+        assert response.status_code == 404

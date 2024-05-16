@@ -35,12 +35,12 @@ def put_set(set_id):
 
     set = db.get_or_404(Flashcard_set, set_id)
     
-    if updated_name is None:
+    if updated_name == "":
         new_name = set.name
     else: 
         new_name = updated_name
 
-    if updated_descrp is None: 
+    if updated_descrp == "": 
         new_descrip = set.description
     else:
         new_descrip = updated_descrp
