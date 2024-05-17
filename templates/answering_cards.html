@@ -63,7 +63,9 @@
 </script>
 {% endblock %}
 {% block content %}
-
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='answering_cards.css') }}">
+</head>
 <h1> All Cards </h1>
     <div class="container">
         {% for card in cards%}
