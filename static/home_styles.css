@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 
- body {
+body {
   background-image: url('underwater-ocean.jpg'); 
   background-repeat: no-repeat;
   background-size: cover; 
@@ -11,6 +11,10 @@
 
 main {
   color: white;
+}
+
+.horizontol-nav img {
+  display: none;
 }
 
 header img {

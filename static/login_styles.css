@@ -10,6 +10,14 @@
 body {
     background-image: url('ocean.jpg'); 
     background-repeat: no-repeat;
+    background-size: cover; 
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.horizontol-nav img {
+    width: 200px;
+    height: auto;
     background-size: cover;
     overflow-y: auto;
 }
