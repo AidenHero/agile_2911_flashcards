@@ -129,6 +129,11 @@ def test_card_deleting_fail(client, to_login):
     response = client.post('/cards/404/delete')
     assert response.status_code == 404
 
+
+def test_card_updating_not_logged_in(client):
+    response = client.get("/cards/")
+    assert response.status_code == 302
+
 def test_card_screen(client, to_login):
     to_login
     response = client.get("/cards/")
