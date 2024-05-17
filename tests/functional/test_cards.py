@@ -101,4 +101,45 @@ def test_card_updating(client, context, to_login):
 
 def test_card_updating_fail(client, to_login):
     to_login
+    response = client.post('/cards/404/update',data={
+        "new_answer": "this card doesn't exist"
+        })
     
+    assert response.status_code == 404
+
+def test_card_deleting(client, context, to_login):
+    to_login
+    client.post("/cards/", data={
+        'card_question': 'this is a test',
+        'card_answer': 'this is an answer',
+        'card_set': 2
+    })
+
+    response = client.post('/cards/7/delete')
+
+    assert response.status_code == 302
+
+    with context:
+        card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 7)).scalar()
+
+        assert card == None
+
+def test_card_deleting_fail(client, to_login):
+    to_login
+    response = client.post('/cards/404/delete')
+    assert response.status_code == 404
+
+
+def test_card_updating_not_logged_in(client):
+    response = client.get("/cards/")
+    assert response.status_code == 302
+
+def test_card_screen(client, to_login):
+    to_login
+    response = client.get("/cards/")
+    print(response.data)
+    assert response.status_code == 200
+
+    assert b'The Question' in response.data
+    assert b'The Answer' in response.data
+
