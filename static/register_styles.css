@@ -11,7 +11,7 @@ body {
     background-image: url('ocean.jpg'); 
     background-repeat: no-repeat;
     background-size: cover; 
-    overflow: hidden;
+    overflow-y: auto;
 
 }
 
@@ -44,7 +44,6 @@ body {
 
 .register_container::before {
     content: "";
-    position: absolute;
     top: -50px;
     left: -50px;
     right: -50px;
