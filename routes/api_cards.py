@@ -15,7 +15,7 @@ def make_card_screen():
     user_sets = db.session.query(Flashcard_set).filter(Flashcard_set.set_id.in_(user_set_ids)).all()
     # setIds = db.session.execute(db.select(Flashcard_set).order_by(Flashcard_set.set_id)).scalars()
     # print(setIds)
-    return render_template("create_card.html", sets=user_sets)
+    return render_template("create_card.html", sets=user_sets), 200
 
 
 @api_cards_bp.route('/', methods=["POST"]) # to make new card
