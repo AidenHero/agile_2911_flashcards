@@ -18,6 +18,8 @@ body {
 .horizontol-nav img {
     width: 200px;
     height: auto;
+    background-size: cover;
+    overflow-y: auto;
 }
 
 ::selection {
@@ -119,6 +121,8 @@ body {
     text-decoration: none;
 }
 
-.login_container p span a:hover {
-    text-decoration: underline;
+
+
+.small_text h1, .small_text h2 {
+    font-size: 16px;
 }
