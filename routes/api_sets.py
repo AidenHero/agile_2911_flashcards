@@ -44,12 +44,12 @@ def put_set(set_id):
     if set.customer_id != current_user.id:
         return "Access denied", 403
     
-    if updated_name is None:
+    if updated_name == "":
         new_name = set.name
     else: 
         new_name = updated_name
 
-    if updated_descrp is None: 
+    if updated_descrp == "": 
         new_descrip = set.description
     else:
         new_descrip = updated_descrp

@@ -3,9 +3,9 @@
 <form method="POST">
     <h1>Edit Set</h1>
     <label for="set_name">Set Title</label>
-    <input type="text" id="set_name" name="updated_name" input value="{{ set.name }}" required>
+    <input type="text" id="set_name" name="updated_name" input value="{{ set.name }}">
     <label for="set_descript">Set Description</label>
-    <input type="text" id="set_descript" name="updated_descrp" input value="{{ set.description }}" required>
+    <input type="text" id="set_descript" name="updated_descrp" input value="{{ set.description }}">
     <form method="POST" action="{{ url_for('api_sets.put_set', set_id=set.set_id) }}">
         <button type="submit"> Update </button>
     </form>
