@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <form method="POST">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_set.css') }}">
+    </head>
     <h1>Create a New Card</h1>
     <h3>Choose a set</h3>
     {% for set in sets%}
