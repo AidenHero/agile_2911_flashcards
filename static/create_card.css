@@ -2,3 +2,15 @@
     width: 200px;
     height: auto;
 }
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12rem;
+    margin: 0;
+    overflow: hidden;
+    overflow-y: auto;
+}
