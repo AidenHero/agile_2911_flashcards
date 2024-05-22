@@ -124,3 +124,6 @@ button:hover {
     color: green;
     margin-top: 25px;
 }
+h3 {
+    display: inline;
+}
