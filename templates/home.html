@@ -12,7 +12,7 @@
 <nav class="nav-links">
     <div class="logo">
         <a href="/">
-        <img src="../static/FLASHCARDSHARKS_LOGO.png" alt="FlashcardSharks Logo">
+        <img src="{{ url_for('static', filename='FLASHCARDSHARKS_LOGO.png') }}" alt="FlashcardSharks Logo">
         </a>
     </div>
     <div class="nav-links-container">
@@ -29,12 +29,6 @@
     </div>
 </nav>
 
-<nav class="secondary-nav">
-    <!-- {% if not user %} -->
-        <a href="{{ url_for('pages.show_register_page')}}">Sign up now</a>
-    <!-- {% endif %} -->
-</nav>
-
 <main>
 <section id="WelcometoHomepage">
     <div class="overlay">
@@ -42,9 +36,11 @@
             WELCOME TO  <br> FLASHCARD SHARKS <br>
         </h1>
         <p>Flashcards to ace your tests.</p>
+        {% if not current_user.is_authenticated %}
         <button class="big-signup">
             <a href="{{ url_for('pages.show_register_page')}}">SIGN UP NOW</a>
         </button>
+        {% endif %}
     </div>
 </section>
 </main>
