@@ -2,27 +2,35 @@
 {% block content %}
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sets.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<h1> All Sets </h1>
-{% for set in sets %}
-<p>
-    <strong>Set Name:</strong>
-
-    <span>
-        {{ set.name }}
-    </span>
-    
-    <span>
-        <form action="{{ url_for('api_sets.view_update_set', set_id=set.set_id) }}">
-            <button type="submit"> Update Set </button>
-        </form>
-    </span>
-
-    <form method="POST" action="{{ url_for('api_sets.delete_set', set_id=set.set_id) }}">
-        <button type="submit"> Delete Set {{ set.set_id }} </button>
-    </form>
-
-</p>
-{% endfor %}
-
+<body>
+    <h1> All Sets </h1>
+    <div class="sets-container">
+        {% if sets %}
+            {% for set in sets %}
+            <div class="set-card">
+                <h2>
+                    <strong> <span>{{ set.name }}</span> </strong>
+                </h2>
+                <p>
+                    <span>{{ set.description }}</span>
+                </p>
+                <div class="set-actions">
+                    <form action="{{ url_for('api_sets.view_update_set', set_id=set.set_id) }}">
+                        <button type="submit" class="icon-button edit-icon"><i class="far fa-edit"></i></button>
+                    </form>
+                    <form method="POST" action="{{ url_for('api_sets.delete_set', set_id=set.set_id) }}">
+                        <button type="submit" class="icon-button trash-icon"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="set-card new-set" onclick="window.location.href='{{ url_for('api_sets.post_set') }}'">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </div>
+        {% endif %}
+    </div>
+</body>
 {% endblock %}
