@@ -1,3 +1,7 @@
+<!-- 
+    dont need this anymore, added to the sets page.
+ -->
+
 {% extends "base.html" %}
 {% block content %}
 <div class="create_container">
@@ -19,12 +23,11 @@
             <button type="submit">Create</button>
         </div>
     </form>
-</div>
-
-<div id="popup" class="popup">
-    <span class="close-btn" onclick="document.getElementById('popup').style.display='none'">&times;</span>
-    <p>Successfully Created</p>
-    <div class="checkmark">&#10004;</div>
+    <div id="popup" class="popup">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <p>Successfully Created</p>
+        <div class="checkmark">&#10004;</div>
+    </div>
 </div>
 
 <script>
@@ -45,5 +48,10 @@
             console.error('Error:', error);
         });
     });
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+        window.location.href = '{{ url_for("sets.sets_page") }}';
+    }
 </script>
 {% endblock %}
