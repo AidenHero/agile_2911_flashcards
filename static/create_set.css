@@ -1,9 +1,15 @@
+/* 
+don't need this anymore, but it's here just in case
+*/
+
+
 .horizontol-nav img {
     width: 200px;
     height: auto;
 }
 
-body {
+
+/* body {
     font-family: 'Arial', sans-serif;
     background-color: #e0e0e0;
     display: flex;
@@ -92,7 +98,7 @@ button:hover {
 .popup {
     display: none;
     position: fixed;
-    left: 52%;
+    left: 52.5%;
     top: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
@@ -126,4 +132,4 @@ button:hover {
 }
 h3 {
     display: inline;
-}
+} */
