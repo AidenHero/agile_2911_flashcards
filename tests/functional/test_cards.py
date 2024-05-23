@@ -20,6 +20,21 @@ def to_login(client):
         })
 
 
+def test_display_cards_page(client, to_login): # checks if the all cards page displays
+    to_login
+    response = client.get("/all/cards/")
+    assert response.status_code == 200
+
+def test_display_specific_card_page(client, to_login):
+    to_login
+    response = client.get("/all/cards/1") # checks if page for specific card displays
+    assert b'Question' in response.data
+    assert b'Answer' in response.data
+
+def test_display_answers_page(client, to_login): # checks if answers page displays
+    to_login
+    response = client.get("/all/cards/answer")
+    assert b'Your answer' in response.data
 
 def test_card_creation(client, context, to_login):
     to_login
