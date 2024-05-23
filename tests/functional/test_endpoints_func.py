@@ -2,24 +2,41 @@ from app import app
 from db import db
 from models import Customer
 from werkzeug.security import check_password_hash
+import requests
+import pytest
 
-def test_display_homepage(): # checks if the homepage displays
-    with app.test_client() as test_client:
-        response = test_client.get("/")
+@pytest.fixture()
+def client():
+    return app.test_client()
+
+@pytest.fixture() 
+def context():
+     return app.app_context()
+
+@pytest.fixture()
+def to_login(client):
+    return client.post("login", data={
+            'loginusername': "AidenHero",
+            'loginPassword': "aiden123"
+        })
+
+def test_display_homepage(client): # checks if the homepage displays
+    with client:
+        response = client.get("/")
         assert response.status_code == 200
         assert b'Home' in response.data
 
-def test_display_login(): # checks if the login page displays
-    with app.test_client() as test_client:
-        response = test_client.get("/login")
+def test_display_login(client): # checks if the login page displays
+    with client:
+        response = client.get("/login")
         assert response.status_code == 200
         assert b'Login' in response.data
         assert b'Username' in response.data
         assert b'Password' in response.data
 
-def test_display_register(): # checks if the register displays
-    with app.test_client() as test_client:
-        response = test_client.get("/register")
+def test_display_register(client): # checks if the register displays
+    with client:
+        response = client.get("/register")
         assert response.status_code == 200
         assert b'Register' in response.data
         assert b'Username' in response.data
