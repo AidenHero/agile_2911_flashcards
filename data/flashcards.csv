@@ -5,3 +5,23 @@ is design important?,yes,2
 someomething design,yes,2
 what's 1+1 equal to?,2,3
 what's 2x3 equal to?,6,3
+Is Agile a methodology?,no,1
+Is Scrum a framework?,yes,1
+Does Agile promote customer collaboration?,yes,1
+Is the Agile Manifesto a set of guidelines?,yes,1
+Is responding to change important in Agile?,yes,1
+Is a sprint typically 6 months long?,no,1
+Does Scrum have defined roles?,yes,1
+Are user stories used in Agile?,yes,1
+Is continuous improvement a principle of Agile?,yes,1
+Is a daily stand-up usually more than an hour long?,no,1
+Is Kanban part of Agile?,yes,1
+Is the product backlog used in Agile?,yes,1
+Does Agile focus on delivering increments?,yes,1
+Is working software not important in Agile?,no,1
+Is pair programming a practice in Agile?,yes,1
+Is a retrospective used to reflect on the sprint?,yes,1
+Is technical excellence not valued in Agile?,no,1
+Does 'TDD' stand for Test-Driven Development?,yes,1
+Is velocity a measure of team capacity in Agile?,yes,1
+Is the Agile Manifesto focused on tools and processes over individuals?,no,1
