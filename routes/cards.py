@@ -83,7 +83,14 @@ def to_answer(set_id):
     card = db.get_or_404(Flashcard, intkey)
     if value.lower() == card.answer.lower():
         outcome = "correct"
+        card.priority -=1
+        if card.priority <= 0:
+            card.priority = 1
     else:
         outcome = "wrong"
+        card.priority += 1
+
+        
+    db.session.commit()
 
     return render_template("answer_cards.html", card = card, answer = outcome, answered_card_id = card.flash_id, set_id = set_id)
