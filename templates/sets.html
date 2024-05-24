@@ -6,17 +6,13 @@
     <script src="https://kit.fontawesome.com/ef68e7e8d3.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1> All Sets </h1>
+    <h1>All Sets</h1>
     <div class="sets-container">
         {% if sets %}
             {% for set in sets %}
             <div class="set-card">
-                <h2>
-                    <strong> <span>{{ set.name }}</span> </strong>
-                </h2>
-                <p>
-                    <span>{{ set.description }}</span>
-                </p>
+                <h2><strong>{{ set.name }}</strong></h2>
+                <p>{{ set.description }}</p>
                 <div class="set-actions">
                     <form action="{{ url_for('api_sets.view_update_set', set_id=set.set_id) }}">
                         <button type="submit" class="icon-button edit-icon"><i class="far fa-edit"></i></button>
@@ -33,11 +29,73 @@
                 </div>
             </div>
             {% endfor %}
-        {% else %}
-            <div class="set-card new-set" onclick="window.location.href='{{ url_for('api_sets.post_set') }}'">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </div>
         {% endif %}
+        <div class="set-card new-set" onclick="openCreateSetModal()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <!-- Create Set Modal -->
+    <div id="createSetModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCreateSetModal()">&times;</span>
+            <div class="create_container">
+                <h1>Create a New Set</h1>
+                <form id="create-form" method="POST" action="{{ url_for('api_sets.post_set') }}">
+                    <div class="form-group">
+                        <label for="set_name" class="custom-label">Set Title</label>
+                        <input type="text" id="set_name" name="set_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="set_descript" class="custom-label">Set Description</label>
+                        <input type="text" id="set_descript" name="set_descript" required>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="popup" class="popup">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <p>Successfully Created</p>
+        <div class="checkmark">&#10004;</div>
     </div>
 </body>
+
+<script>
+    function openCreateSetModal() {
+        document.getElementById('createSetModal').style.display = 'block';
+    }
+
+    function closeCreateSetModal() {
+        document.getElementById('createSetModal').style.display = 'none';
+    }
+
+    document.getElementById('create-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        fetch('{{ url_for("api_sets.post_set") }}', {
+            method: 'POST',
+            body: new FormData(this)
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById('popup').style.display = 'block';
+            } else {
+                alert('An error occurred. Please try again.');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+        closeCreateSetModal();
+        window.location.href = '{{ url_for("sets.sets_page") }}';
+    }
+</script>
 {% endblock %}
