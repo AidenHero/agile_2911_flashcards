@@ -2,7 +2,7 @@ from app import app
 from db import db
 from models import Customer
 from werkzeug.security import check_password_hash
-#import requests
+import requests
 import pytest
 
 @pytest.fixture()
