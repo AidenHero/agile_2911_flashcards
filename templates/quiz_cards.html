@@ -4,13 +4,23 @@
     /* just copy and pasted the buttons from w3 studio, please make this look pretty */
     .flashcard{
         display: none;
+        margin: auto;
+        width: 400px;
+        height: 400px;
+        background-color: red;
+        text-align: center;
+    }
+
+    .flashcard > p{
+        color: green;
+        font-size: 200px;
     }
 
     .prev,
     .next {
         cursor: pointer;
         /* this made the buttons dissapear?? probably don't need it anyway, but hopefully someone who knows what they're doing can explain */
-        /* position: absolute; */
+        position: absolute;
         top: 40%;
         width: auto;
         padding: 16px;
@@ -20,8 +30,8 @@
         font-size: 20px;
         border-radius: 0 3px 3px 0;
         /* removed cause i have no idea what this does, and i'm too lazy to look at it */
-        /* user-select: none;
--webkit-user-select: none; */
+        user-select: none;
+        -webkit-user-select: none;
     }
 
     /* Position the "next button" to the right */
@@ -55,8 +65,9 @@
     };
     document.addEventListener("DOMContentLoaded", () => {
         //this is in a seperate variable, because for some reason whenever i tried to use the jinja variable inside flashcardDisplay directly, it freaks out.  
-        let thisFlashcard = "{{answered_card_id}}" 
-        flashcardDisplay(parseInt(thisFlashcard))
+        // let thisFlashcard = "{{start_card_index}}" 
+        // flashcardDisplay(parseInt(thisFlashcard))
+        flashcardDisplay(1)
     });
 
 
@@ -70,17 +81,7 @@
     <div class="container">
         {% for card in cards%}
         <div class="flashcard">
-            <span>
                 <p>{{card.question}}</p>
-                <form method="POST">
-                    <label for="{{card.flash_id }}">Your answer</label>
-                    <input type="text" id=" {{card.flash_id }}" name=" {{card.flash_id }}">
-                    <input type="submit">
-                </form>
-                {% if card.flash_id == answered_card_id %}
-                <p>{{ answer }}</p>
-                {% endif %}
-            </span>
         </div>
         {% endfor %}
         <a class="prev" id="pbutton">&#10094;</a>
