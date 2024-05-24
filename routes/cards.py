@@ -5,11 +5,15 @@ from flask_login import current_user,login_required
 from random import randint
 cards_bp = Blueprint('cards', __name__)
 
+def get_user_ids(current_user):
+    user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id = current_user.id).all()
+    user_set_ids = [set_id for (set_id,) in user_set_ids]
+    return user_set_ids
+
 @cards_bp.route('/') # display all cards
 @login_required
 def cards_page():
-    user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id=current_user.id).all()
-    user_set_ids = [set_id for (set_id,) in user_set_ids]
+    user_set_ids = get_user_ids(current_user)
     user_cards = db.session.query(Flashcard).filter(Flashcard.set_id.in_(user_set_ids)).all()  
     # all_cards = db.session.execute(db.select(Flashcard)).scalars()
     return render_template("cards.html", cards=user_cards)
@@ -42,8 +46,8 @@ def card_detail(card_id):
 @cards_bp.route('/answer/<int:set_id>')
 @login_required
 def answer_cards_in_set(set_id):
-    user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id=current_user.id).all()
-    user_set_ids = [set_id for (set_id,) in user_set_ids]
+    user_set_ids = get_user_ids(current_user)
+
     if set_id not in user_set_ids: #in case someone types in the set id
         return "You are not permitted to view this set."
     
@@ -66,8 +70,8 @@ def answer_cards_in_set(set_id):
 @cards_bp.route('/quiz/<int:set_id>')
 @login_required
 def quiz_cards_in_set(set_id):
-    user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id=current_user.id).all()
-    user_set_ids = [set_id for (set_id,) in user_set_ids]
+    user_set_ids = get_user_ids(current_user)
+
     if set_id not in user_set_ids:
         return "You are not permitted to view this set."
     
@@ -77,6 +81,10 @@ def quiz_cards_in_set(set_id):
 @cards_bp.route("/answer/<int:set_id>", methods=["POST"])
 @login_required
 def to_answer(set_id):
+    user_set_ids = get_user_ids(current_user)
+
+    if set_id not in user_set_ids:
+        return "You are not permitted to view this set."
     key = list(request.form.keys())[0]
     value = request.form[key]
     intkey = int(key)
