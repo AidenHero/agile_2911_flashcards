@@ -9,7 +9,7 @@ don't need this anymore, but it's here just in case
 }
 
 
-/* body {
+body {
     font-family: 'Arial', sans-serif;
     background-color: #e0e0e0;
     display: flex;
@@ -132,4 +132,4 @@ button:hover {
 }
 h3 {
     display: inline;
-} */
+} 

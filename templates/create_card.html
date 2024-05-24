@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="create_container">
 <form method="POST">
     <head>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_set.css') }}">
@@ -14,8 +15,13 @@
     <br> 
     <label for="card_question">The Question</label>
     <input type="text" id="card_question" name="card_question" required>
+    <br>
+    <br>
     <label for="card_answer">The Answer</label>
     <input type="text" id="card_answer" name="card_answer" required>
+    <br>
+    <br>
     <label for="submit_card"><input type="submit" id="submit_card" name="submit_card" required></label>
 </form>
+</div>
 {% endblock %}
