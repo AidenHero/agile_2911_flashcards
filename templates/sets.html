@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sets.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://kit.fontawesome.com/ef68e7e8d3.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <h1> All Sets </h1>
@@ -24,7 +25,10 @@
                         <button type="submit" class="icon-button trash-icon"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </form>
                     <form action="{{ url_for('cards.quiz_cards_in_set', set_id=set.set_id) }}">
-                        <button>Quiz</button>
+                        <button type="submit" class="icon-button pen-nib-icon"><i class="fa-solid fa-pen-nib"></i></button>
+                    </form>
+                    <form action="{{ url_for('cards.answer_cards_in_set', set_id=set.set_id) }}">
+                        <button type="submit" class="icon-button pen-ruler-icon"><i class="fa-solid fa-pen-ruler"></i></button>
                     </form>
                 </div>
             </div>

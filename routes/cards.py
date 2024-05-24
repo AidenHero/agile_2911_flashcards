@@ -41,7 +41,7 @@ def card_detail(card_id):
 
 @cards_bp.route('/answer/<int:set_id>')
 @login_required
-def answer_card_set(set_id):
+def answer_cards_in_set(set_id):
     user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id=current_user.id).all()
     user_set_ids = [set_id for (set_id,) in user_set_ids]
     if set_id not in user_set_ids: #in case someone types in the set id
@@ -89,6 +89,8 @@ def to_answer(set_id):
     else:
         outcome = "wrong"
         card.priority += 1
+        if card.priority >= 6:
+            card.priority = 5
 
         
     db.session.commit()
