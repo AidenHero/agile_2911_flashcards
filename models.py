@@ -35,7 +35,7 @@ class Flashcard(db.Model):
     answer = mapped_column(String(500), nullable=False)
     set_id = mapped_column(Integer, ForeignKey(Flashcard_set.set_id), nullable=False)
     tags = mapped_column(String(200), nullable=True)
-    priority = mapped_column(Integer, nullable=True)
+    priority = mapped_column(Integer, nullable=False, default=1)
     last_seen = mapped_column(DateTime, nullable=True)
     last_result = mapped_column(Integer, nullable = True)
     time_created = mapped_column(DateTime, nullable=True)

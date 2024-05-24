@@ -27,6 +27,28 @@ def answer_cards():
     user_set_ids = [set_id for (set_id,) in user_set_ids]
     user_cards = db.session.query(Flashcard).filter(Flashcard.set_id.in_(user_set_ids)).all()
     # all_cards = db.session.execute(db.select(Flashcard)).scalars()
+    # cards_to_answer = []
+    # for card in user_cards:
+    #     priority = card.priority
+    #     cards_to_answer.extend(card*priority)
+
+    # print(cards_to_answer)
+    #get the sets that are being tested
+    #get all the cards in that set into a list
+    #get a random card, the chances of getting a card are increased depending on how prioritized that card is
+    #
+    return render_template("answering_cards.html", cards=user_cards, answered_card_id = 1)
+
+
+@cards_bp.route('/answer/<int:set_id>')
+@login_required
+def answer_cards_in_set(set_id):
+    user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id=current_user.id).all()
+    user_set_ids = [set_id for (set_id,) in user_set_ids]
+    if set_id not in user_set_ids:
+        return "You are not permitted to view this set."
+    
+    user_cards = db.session.query(Flashcard).filter_by(set_id = set_id).all()
     return render_template("answering_cards.html", cards=user_cards, answered_card_id = 1)
 
 @cards_bp.route("/answer", methods=["POST"])
