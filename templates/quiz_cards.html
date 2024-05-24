@@ -1,17 +1,46 @@
 {% extends "base.html" %}
 {% block head %}
 <style>
+
+    .container{
+        width: 100%;
+        height: 100%;
+    }
     /* just copy and pasted the buttons from w3 studio, please make this look pretty */
     .flashcard{
         display: none;
         margin: auto;
-        width: 400px;
-        height: 400px;
+        position: relative;
+        width: 100px;
+        height: 100px;
         background-color: red;
         text-align: center;
+        transform-style: preserve-3d;
+        transition: all 0.8s ease;
     }
 
-    .flashcard > p{
+    .card_front, .card_back{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        margin: auto;
+        backface-visibility: hidden;
+        /* height: 200px;
+        width:  200px; */
+    }
+
+    .card_back{
+        /* display: none; */
+        transform: rotateY(180deg);
+    }
+
+    .flipCard{
+        transform: rotateY(180deg);
+    }
+
+    .flashcard > h1{
+        text-align: center;
         color: green;
         font-size: 200px;
     }
@@ -63,7 +92,16 @@
         }, { once: true });
 
     };
+
+
     document.addEventListener("DOMContentLoaded", () => {
+        let cards = document.getElementsByClassName('flashcard');
+
+        for(let i = 0; i < cards.length; i++)
+        {
+        cards[i].addEventListener("click", () =>{
+            cards[i].classList.toggle("flipCard");
+        });}
         //this is in a seperate variable, because for some reason whenever i tried to use the jinja variable inside flashcardDisplay directly, it freaks out.  
         // let thisFlashcard = "{{start_card_index}}" 
         // flashcardDisplay(parseInt(thisFlashcard))
@@ -77,11 +115,16 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='answering_cards.css') }}">
 </head>
-<h1> All Cards </h1>
+<h1>Hello</h1>
     <div class="container">
         {% for card in cards%}
         <div class="flashcard">
-                <p>{{card.question}}</p>
+            <div class="card_front">
+                <p>{{card.question}}<p>
+            </div>
+            <div class="card_back">
+                <p>{{card.answer}}<p>
+            </div>
         </div>
         {% endfor %}
         <a class="prev" id="pbutton">&#10094;</a>

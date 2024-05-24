@@ -44,21 +44,21 @@ def card_detail(card_id):
 def answer_card_set(set_id):
     user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id=current_user.id).all()
     user_set_ids = [set_id for (set_id,) in user_set_ids]
-    if set_id not in user_set_ids:
+    if set_id not in user_set_ids: #in case someone types in the set id
         return "You are not permitted to view this set."
     
     user_cards = db.session.query(Flashcard.flash_id).filter_by(set_id = set_id).all()
     card_ids = db.session.query(Flashcard.flash_id).filter_by(set_id = set_id).all()
 
     card_ids = [card_id for (card_id,) in user_cards]
-    prio_cards = []
+    prio_cards = []# a list of all cards, with cards with higher priority more likely to be chosen because they occur more often in the list
     for card_id in card_ids:
         card = db.get_or_404(Flashcard, card_id)
-        card.priority = randint(1,4)
-        priority = card.priority
-        prio_cards.extend([card_id] *int(priority))
+        # card.priority = randint(1,4) ** for testing purposes only
+        priority = card.priority 
+        prio_cards.extend([card_id] *int(priority)) # puts the card into the list a numhber of times equal to priority. ie card 5 with priority 2 would look like [card5, card5]
     
-    cardID = prio_cards[randint(0,len(prio_cards)-1)]
+    cardID = prio_cards[randint(0,len(prio_cards)-1)] #randomly gets one of the cards
     card = db.get_or_404(Flashcard, cardID)
     return render_template("answer_cards.html", card=card, set_id = set_id) 
 
@@ -77,7 +77,6 @@ def quiz_cards_in_set(set_id):
 @cards_bp.route("/answer/<int:set_id>", methods=["POST"])
 @login_required
 def to_answer(set_id):
-    setID = set_id
     key = list(request.form.keys())[0]
     value = request.form[key]
     intkey = int(key)
