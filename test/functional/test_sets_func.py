@@ -69,23 +69,23 @@ def test_update_set_post(client, context, to_login): # checks if set updates suc
     to_login
 
     with context:
-        new_set = Flashcard_set(set_id=88, name="Testing Set", customer_id=1, description="Testing Set Description")
+        new_set = Flashcard_set(set_id=888, name="Testing Set", customer_id=1, description="Testing Set Description")
         db.session.add(new_set)
         db.session.commit()
 
-        response = client.post("sets/88/update", data = { # update set
+        response = client.post("sets/888/update", data = { # update set
             'updated_name': "New Test Set Name",
             'updated_descrp': 'New Test Set Description',
         })
-        retrieved_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == 88)).scalar()
+        retrieved_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == 888)).scalar()
 
         assert retrieved_set.name == "New Test Set Name" 
         assert retrieved_set.description == "New Test Set Description"
         assert response.status_code == 302
         
-        response = client.post("sets/88/update") # update set without new inputs. Make sure it's still the input from before
+        response = client.post("sets/888/update") # update set without new inputs. Make sure it's still the input from before
 
-        retrieved_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == 88)).scalar()
+        retrieved_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == 888)).scalar()
 
         assert retrieved_set.name == "New Test Set Name" 
         assert retrieved_set.description == "New Test Set Description"
@@ -98,11 +98,11 @@ def test_delete_set_post(client, context, to_login): # checks if set updates suc
     to_login
         
     with context:
-        new_set = Flashcard_set(set_id=88, name="Testing Set", customer_id=1, description="Testing Set Description")
+        new_set = Flashcard_set(set_id=888, name="Testing Set", customer_id=1, description="Testing Set Description")
         db.session.add(new_set)
         db.session.commit()
 
-    response = client.post("sets/88/delete")  # delete set
+    response = client.post("sets/888/delete")  # delete set
     assert response.status_code == 302
 
     response = client.post("sets/8888/delete")  # checks if there's error for trying to delete nonexistant set

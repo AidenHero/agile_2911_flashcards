@@ -78,37 +78,43 @@ def test_card_creation_fail(client, to_login):
 
 def test_card_updating(client, context, to_login):
     to_login
-    response = client.post("/cards/", data={
-        'card_question': 'this is a test',
-        'card_answer': 'this is an answer',
-        'card_set': 2
-    })
-    response = client.post("/cards/7/update", data={
+    # response = client.post("/cards/", data={
+    #     'card_question': 'this is a test',
+    #     'card_answer': 'this is an answer',
+    #     'card_set': 2
+    # })
+
+    with context:
+        new_card = Flashcard(flash_id=888, question="Testing Card", answer="Testing Card Answer", set_id=1)
+        db.session.add(new_card)
+        db.session.commit()
+
+    response = client.post("/cards/888/update", data={
         'new_question': 'what is this doing?',
         'new_answer': 'this is updating'
     })
     assert response.status_code == 302
     with context:
-        updated_card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 7)).scalar()
+        updated_card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 888)).scalar()
         assert updated_card.question == "what is this doing?"
         assert updated_card.answer == "this is updating"
 
 
-    response = client.post("/cards/7/update", data={
+    response = client.post("/cards/888/update", data={
         'new_question': 'only question updated'
     })
     assert response.status_code == 302
     with context:
-        updated_card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 7)).scalar()
+        updated_card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 888)).scalar()
         assert updated_card.question == "only question updated"
         assert updated_card.answer == "this is updating"
 
-    response = client.post("/cards/7/update", data={
+    response = client.post("/cards/888/update", data={
         'new_answer': 'now answer has updated'
     })
 
     with context:
-        updated_card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 7)).scalar()
+        updated_card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 888)).scalar()
         assert updated_card.question == "only question updated"
         assert updated_card.answer == "now answer has updated"
         db.session.delete(updated_card)
@@ -124,18 +130,32 @@ def test_card_updating_fail(client, to_login):
 
 def test_card_deleting(client, context, to_login):
     to_login
-    client.post("/cards/", data={
-        'card_question': 'this is a test',
-        'card_answer': 'this is an answer',
-        'card_set': 2
-    })
+    # client.post("/cards/", data={
+    #     'card_question': 'this is a test',
+    #     'card_answer': 'this is an answer',
+    #     'card_set': 2
+    # })
 
-    response = client.post('/cards/7/delete')
+    # response = client.post('/cards/7/delete')
+
+    # assert response.status_code == 302
+
+    # with context:
+    #     card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 7)).scalar()
+
+    #     assert card == None
+
+    with context:
+        new_card = Flashcard(flash_id=888, question="Testing Card", answer="Testing Card Answer", set_id=1)
+        db.session.add(new_card)
+        db.session.commit()
+
+    response = client.post('/cards/888/delete')
 
     assert response.status_code == 302
 
     with context:
-        card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 7)).scalar()
+        card = db.session.execute(db.select(Flashcard).where(Flashcard.flash_id == 888)).scalar()
 
         assert card == None
 
