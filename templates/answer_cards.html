@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='answering_cards.css') }}">
+</head>
+<h1> All Cards </h1>
+<div class="container">
+    <div class="flashcard">
+        <span>
+            <p>{{card.question}}</p>
+            <form method="POST">
+                <label for="{{card.flash_id }}">Your answer</label>
+                <input type="text" id=" {{card.flash_id }}" name=" {{card.flash_id }}">
+                <input type="submit">
+            </form>
+            {% if card.flash_id == answered_card_id %}
+            <p>{{ answer }}</p>
+            {% endif %}
+        </span>
+    </div>
+    <form action="{{ url_for('cards.answer_cards_in_set', set_id = set_id) }}">
+    <button>&#10095;</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,16 +1,49 @@
 {% extends "base.html" %}
 {% block head %}
 <style>
+
+    .container{
+        width: 100%;
+        height: 100%;
+    }
     /* just copy and pasted the buttons from w3 studio, please make this look pretty */
     .flashcard{
         display: none;
+        margin: auto;
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        text-align: center;
+        transform-style: preserve-3d;
+        transition: all 0.8s ease;
+    }
+
+    .card_front, .card_back{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        margin: auto;
+        backface-visibility: hidden;
+        /* height: 200px;
+        width:  200px; */
+    }
+
+    .card_back{
+        /* display: none; */
+        transform: rotateX(180deg);
+    }
+
+    .flipCard{
+        transform: rotateX(180deg);
     }
 
     .prev,
     .next {
         cursor: pointer;
         /* this made the buttons dissapear?? probably don't need it anyway, but hopefully someone who knows what they're doing can explain */
-        /* position: absolute; */
+        position: absolute;
         top: 40%;
         width: auto;
         padding: 16px;
@@ -20,8 +53,8 @@
         font-size: 20px;
         border-radius: 0 3px 3px 0;
         /* removed cause i have no idea what this does, and i'm too lazy to look at it */
-        /* user-select: none;
--webkit-user-select: none; */
+        user-select: none;
+        -webkit-user-select: none;
     }
 
     /* Position the "next button" to the right */
@@ -53,10 +86,20 @@
         }, { once: true });
 
     };
+
+
     document.addEventListener("DOMContentLoaded", () => {
+        let cards = document.getElementsByClassName('flashcard');
+
+        for(let i = 0; i < cards.length; i++)
+        {
+        cards[i].addEventListener("click", () =>{
+            cards[i].classList.toggle("flipCard");
+        });}
         //this is in a seperate variable, because for some reason whenever i tried to use the jinja variable inside flashcardDisplay directly, it freaks out.  
-        let thisFlashcard = "{{answered_card_id}}" 
-        flashcardDisplay(parseInt(thisFlashcard))
+        // let thisFlashcard = "{{start_card_index}}" 
+        // flashcardDisplay(parseInt(thisFlashcard))
+        flashcardDisplay(1)
     });
 
 
@@ -66,21 +109,16 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='answering_cards.css') }}">
 </head>
-<h1> All Cards </h1>
+<h1>Hello</h1>
     <div class="container">
         {% for card in cards%}
         <div class="flashcard">
-            <span>
-                <p>{{card.question}}</p>
-                <form method="POST">
-                    <label for="{{card.flash_id }}">Your answer</label>
-                    <input type="text" id=" {{card.flash_id }}" name=" {{card.flash_id }}">
-                    <input type="submit">
-                </form>
-                {% if card.flash_id == answered_card_id %}
-                <p>{{ answer }}</p>
-                {% endif %}
-            </span>
+            <div class="card_front">
+                <p>{{card.question}}<p>
+            </div>
+            <div class="card_back">
+                <p>{{card.answer}}<p>
+            </div>
         </div>
         {% endfor %}
         <a class="prev" id="pbutton">&#10094;</a>
