@@ -13,7 +13,7 @@ def create_customer_database():
         reader1=(list(reader))
         for row in reader1:
             hashed_password = generate_password_hash(row['password'])
-            obj = Customer(name=row['name'], username=row['username'], password=hashed_password)
+            obj = Customer(name=row['name'], username=row['username'], password=hashed_password, points=row['points'])
             db.session.add(obj)
         db.session.commit()
 

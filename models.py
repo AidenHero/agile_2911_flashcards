@@ -11,16 +11,16 @@ class Customer(UserMixin, db.Model):
     name = mapped_column(String(200), nullable=False)
     username = mapped_column(String(250), nullable=False, unique=True)
     password = mapped_column(String(250), nullable=False)
-    points = mapped_column(Integer, default=0)
+    points = mapped_column(Integer, nullable=False, default=0)
     set = relationship("Flashcard_set", back_populates="customer", cascade="all, delete-orphan")
     
-    def to_json(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'phone': self.phone,
-            'balance': self.balance
-        }
+    # def to_json(self):
+    #     return {
+    #         'id': self.id,
+    #         'name': self.name,
+    #         'phone': self.phone,
+    #         'balance': self.balance
+    #     }
 
 class Flashcard_set(db.Model):
     set_id=mapped_column(Integer, primary_key=True, autoincrement=True)

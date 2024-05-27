@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request
 from db import db
 from models import Customer, Flashcard, Flashcard_set
 from flask_login import current_user, login_required
+from sqlalchemy import func
 # from flask_login import login_user, login_required, logout_user, current_user
 # from app import app
 
@@ -28,13 +29,15 @@ def show_register_page():
 @login_required
 def show_points_page(): 
     user_points = db.session.query(Customer.points).filter_by(id = current_user.id).first()
-    print(user_points)
-    if user_points is None:
-        user_points = 0
-    else:
-        user_points = user_points[0]
-    print(user_points)
-    return render_template("points.html", user_points=user_points)
+    # print(user_points)
+    user_points = user_points[0]
+    # print(user_points)
+
+    max_points = db.session.query(func.max(Customer.points)).scalar()
+    # print(max_points)
+    # max_points = max_points[0]
+
+    return render_template("points.html", user_points=user_points, max_points=max_points)
 
 # @endpoint.route('/register', methods=["POST"]) 
 # def register(): 
