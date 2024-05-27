@@ -11,6 +11,7 @@ class Customer(UserMixin, db.Model):
     name = mapped_column(String(200), nullable=False)
     username = mapped_column(String(250), nullable=False, unique=True)
     password = mapped_column(String(250), nullable=False)
+    points = mapped_column(Integer, default=0)
     set = relationship("Flashcard_set", back_populates="customer", cascade="all, delete-orphan")
     
     def to_json(self):
