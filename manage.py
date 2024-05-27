@@ -1,6 +1,6 @@
 from db import db
 from app import app
-from models import Customer, Flashcard, Flashcard_set
+from models import Customer, Flashcard, Flashcard_set, Collectible, Customer_Owned_Collectible
 from csv import DictReader
 from sqlalchemy.sql import functions as func
 import random
@@ -33,9 +33,7 @@ def create_flashcard_database():
             db.session.add(obj)
         db.session.commit()
 
-# def drop_table():
-#     with app.app_context():
-#         db.drop_all()
+
 
 if __name__ == "__main__":
     with app.app_context():
@@ -43,4 +41,4 @@ if __name__ == "__main__":
         db.create_all()
         create_customer_database()
         create_flashcard_set_database()
-        create_flashcard_database()
+        create_flashcard_database()        

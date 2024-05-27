@@ -13,14 +13,7 @@ class Customer(UserMixin, db.Model):
     password = mapped_column(String(250), nullable=False)
     points = mapped_column(Integer, nullable=False, default=0)
     set = relationship("Flashcard_set", back_populates="customer", cascade="all, delete-orphan")
-    
-    # def to_json(self):
-    #     return {
-    #         'id': self.id,
-    #         'name': self.name,
-    #         'phone': self.phone,
-    #         'balance': self.balance
-    #     }
+
 
 class Flashcard_set(db.Model):
     set_id=mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -42,3 +35,15 @@ class Flashcard(db.Model):
     time_created = mapped_column(DateTime, nullable=True)
     time_updated = mapped_column(DateTime, nullable=True)
     set = relationship("Flashcard_set", back_populates="card")
+
+class Collectible(db.Model):
+    collectible_id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name = mapped_column(String(500), nullable=False)
+    description = mapped_column(String(500), nullable=False)
+
+class Customer_Owned_Collectible(db.Model):
+    coc_id = mapped_column(Integer, primary_key=True, autoincrement=True)
+    customer_id = mapped_column(Integer, ForeignKey(Customer.id), nullable=False)
+    collectible_id = mapped_column(Integer, ForeignKey(Collectible.collectible_id), nullable=False)
+    collectibles = relationship("Collectible", backref="Customers")
+    customers = relationship("Customer", backref="Collectible")
