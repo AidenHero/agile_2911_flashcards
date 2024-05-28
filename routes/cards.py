@@ -89,11 +89,14 @@ def to_answer(set_id):
     value = request.form[key]
     intkey = int(key)
     card = db.get_or_404(Flashcard, intkey)
+    user = db.get_or_404(Customer, current_user.id)
     if value.lower() == card.answer.lower():
         outcome = "correct"
         card.priority -=1
+        user.points += 10
         if card.priority <= 0:
             card.priority = 1
+        
     else:
         outcome = "wrong"
         card.priority += 1
