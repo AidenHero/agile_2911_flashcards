@@ -4,6 +4,7 @@ from .sets import sets_bp
 from .api_cards import api_cards_bp
 from .api_sets import api_sets_bp
 from .authorization import authorization_bp
+from .collectibles import collectibles_bp
 
 def init_app(app):
     app.register_blueprint(endpoint)

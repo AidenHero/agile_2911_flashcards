@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, Blueprint
 from pathlib import Path
 from db import db
-from routes import endpoint, cards_bp, sets_bp, api_cards_bp, api_sets_bp, authorization_bp
+from routes import endpoint, cards_bp, sets_bp, api_cards_bp, api_sets_bp, authorization_bp, collectibles_bp
 from models import Customer
 from flask_login import LoginManager
 
@@ -14,6 +14,7 @@ app.register_blueprint(sets_bp, url_prefix='/all/sets')
 app.register_blueprint(api_cards_bp, url_prefix='/cards')
 app.register_blueprint(api_sets_bp, url_prefix='/sets')
 app.register_blueprint(authorization_bp, url_prefix='/')
+app.register_blueprint(collectibles_bp, url_prefix='/collectibles')
 
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"

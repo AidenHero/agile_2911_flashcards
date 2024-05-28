@@ -42,3 +42,9 @@ if __name__ == "__main__":
         create_customer_database()
         create_flashcard_set_database()
         create_flashcard_database()        
+        a = Customer_Owned_Collectible(customer_id=1,collectible_id=1)
+        db.session.add(a)
+        db.session.commit()
+        
+        
+        
