@@ -1,0 +1,53 @@
+.horizontol-nav img {
+    width: 200px;
+    height: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 36px;
+    padding: 40px;
+    text-align: center;
+    color: #618aa9;
+    margin-top: 50px;
+}
+
+.points-container {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    background-color: rgb(65, 90, 128);
+    color: var(--white);
+    margin-left: 50px;
+    padding: 40px;
+    font-size: 35px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto auto;
+    border: 2px solid #bfbfbf;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+}
+
+
+.points-container a {
+    text-decoration: none;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0 10px;
+}
+
+.points-container a:hover {
+    transform: translateX(1%) scale(1.1);
+}
+
+  
