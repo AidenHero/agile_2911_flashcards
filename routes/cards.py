@@ -109,9 +109,6 @@ def to_answer(set_id):
         if card.priority >= 6:
             card.priority = 5
 
-    if not card: 
-        card = None
-    
     db.session.commit()
 
     return render_template("answer_cards.html", card = card, answer = outcome, answered_card_id = card.flash_id, set_id = set_id)
