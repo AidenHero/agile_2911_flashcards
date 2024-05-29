@@ -17,15 +17,15 @@
                     <form action="{{ url_for('api_sets.view_update_set', set_id=set.set_id) }}">
                         <button type="submit" class="icon-button edit-icon"><i class="far fa-edit"></i></button>
                     </form>
-                    <form method="POST" action="{{ url_for('api_sets.delete_set', set_id=set.set_id) }}">
-                        <button type="submit" class="icon-button trash-icon"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                    </form>
                     <form action="{{ url_for('cards.quiz_cards_in_set', set_id=set.set_id) }}">
                         <button type="submit" class="icon-button pen-nib-icon"><i class="fa-solid fa-pen-nib"></i></button>
                     </form>
                     <form action="{{ url_for('cards.answer_cards_in_set', set_id=set.set_id) }}">
-                        <button type="submit"><i class="fa-solid fa-pen-ruler"></i></button>
-                    </form>
+                        <button type="submit" class="icon-button pen-ruler-icon"><i class="fa-solid fa-pen-ruler"></i></button>
+                    </form>   
+                    <form method="POST" action="{{ url_for('api_sets.delete_set', set_id=set.set_id) }}">
+                        <button type="submit" class="icon-button trash-icon"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    </form>                 
                 </div>
             </div>
             {% endfor %}
@@ -97,5 +97,7 @@
         closeCreateSetModal();
         window.location.href = '{{ url_for("sets.sets_page") }}';
     }
+
+
 </script>
 {% endblock %}
