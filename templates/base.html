@@ -1,29 +1,35 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        {% block head %}
-        {% endblock %}
-    </head>
-    <body>
-        <div class="container">
-            <nav class="horizontol-nav">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+        <nav class="horizontol-nav">
+            <div class="left-links">
                 <a href="/"><img src="{{ url_for('static', filename='FLASHCARDSHARKS_LOGO.png') }}" alt="FlashcardSharks Logo"></a>
                 <a href="{{ url_for('sets.sets_page')}}">All Sets</a>
                 <a href="{{ url_for('cards.cards_page')}}">All Cards</a>
                 <a href="{{ url_for('api_sets.post_set')}}">Create a Set</a>
                 <a href="{{ url_for('api_cards.post_card')}}">Create a Card</a>
-                {% if current_user.is_authenticated %}
-        <a href="{{ url_for('authorization.logout')}}">Log Out</a>
-        {% else %}
-        <a href="{{ url_for('pages.login')}}">Log In</a>
-        <a href="{{ url_for('pages.show_register_page')}}">Sign Up</a>
-        {% endif %}
+            </div>
+            <div class="right-links">
+                <div class="auth-links">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('authorization.logout')}}">Log Out</a>
+                    {% else %}
+                        <a href="{{ url_for('pages.login')}}">Log In</a>
+                        <a href="{{ url_for('pages.show_register_page')}}">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
         </nav>
         {% block content %}
         {% endblock %}
-        </div>
-    </body>
+    </div>
+</body>
 </html>
