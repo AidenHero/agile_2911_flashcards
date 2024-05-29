@@ -1,27 +1,14 @@
+/* 
+don't need this anymore, but it's here just in case
+*/
+
+
 .horizontol-nav img {
     width: 200px;
     height: auto;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 12rem;
-    margin: 0;
-    overflow: hidden;
-    overflow-y: auto;
-}
-
-.horizontol-nav img {
-    width: 200px;
-    height: auto;
-}
-
-
- body {
     font-family: 'Arial', sans-serif;
     background-color: #e0e0e0;
     display: flex;
@@ -42,7 +29,6 @@ body {
     width: 100%;
     text-align: center;
     position: relative;
-
 }
 
 .create_container::before {
@@ -63,6 +49,10 @@ h1 {
     margin: 2.5rem 0 1.5rem 0;
 }
 
+h3 {
+    color: #618aa9;
+}
+
 .form-group {
     margin-bottom: 1.5rem;
     display: flex;
@@ -75,6 +65,7 @@ h1 {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     margin-right: 1rem;
+    display: inline-block;
     min-width: 120px;
     text-align: center;
 }
@@ -123,6 +114,7 @@ button:hover {
     height: 150px;
     border-radius: 8px;
 }
+
 .popup .close-btn {
     position: absolute;
     top: 10px;
@@ -130,6 +122,7 @@ button:hover {
     cursor: pointer;
     font-size: 34px;
 }
+
 .popup p {
     font-size: 20px;
     font-weight: bold;
@@ -137,11 +130,13 @@ button:hover {
     margin: 0;
     padding: 20px 0 10px 0;
 }
+
 .popup .checkmark {
     font-size: 40px;
     color: green;
     margin-top: 25px;
 }
+
 h3 {
     display: inline;
 } 
