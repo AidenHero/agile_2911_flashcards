@@ -3,18 +3,24 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cards.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sets.css') }}">
+
 </head>
 
 <body>
     <h1>Your Collectibles</h1>
+    <h1>My Points: {{ user_points }} </h1>
     <div class="cards-container">
         {% for collectible in collectibles %}
             <div class="collectible-card">
-                <img src="{{ url_for('static', filename='collectible_' ~ collectible.collectible_id ~ '.png') }}" alt="Collectible Image">
+                <img src="{{ url_for('static', filename='collectible_' ~ collectible.collectible_id ~ '.png') }}" alt="Collectible Image" width="332px" height="282px">
                 <h2>{{ collectible.name }}</h2>
                 <p>{{ collectible.description }}</p>
             </div>
         {% endfor %}
+        <div class="set-card new-set" style="margin: 0">
+        <a href="{{ url_for('collectibles.buy_collectible')}}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        </div>
     </div>
 </body>
 {% endblock %}
