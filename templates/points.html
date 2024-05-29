@@ -7,6 +7,9 @@
 
 <body>
     <h1>My Points: {{ user_points }} </h1>
-    <h1>Highest points of all users: {{ max_points }} </h1>
+    <!-- <h1>Highest points of all users: {{ max_points }} </h1> -->
+    <a href="{{ url_for('collectibles.buy_collectible')}}">Buy Collectible</a>
+
 </body>
+
 {% endblock %}
