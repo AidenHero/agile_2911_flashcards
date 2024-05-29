@@ -111,17 +111,21 @@
 </head>
 <h1>Hello</h1>
     <div class="container">
-        {% for card in cards%}
-        <div class="flashcard">
-            <div class="card_front">
-                <p>{{card.question}}<p>
+        {% if cards is none %}
+            <p> No cards in this set. </p>
+        {% else %}
+            {% for card in cards%}
+            <div class="flashcard">
+                <div class="card_front">
+                    <p>{{card.question}}<p>
+                </div>
+                <div class="card_back">
+                    <p>{{card.answer}}<p>
+                </div>
             </div>
-            <div class="card_back">
-                <p>{{card.answer}}<p>
-            </div>
-        </div>
-        {% endfor %}
-        <a class="prev" id="pbutton">&#10094;</a>
-        <a class="next" id="nbutton">&#10095;</a>
+            {% endfor %}
+            <a class="prev" id="pbutton">&#10094;</a>
+            <a class="next" id="nbutton">&#10095;</a>
+        {% endif %}
     </div>
 {% endblock %}
