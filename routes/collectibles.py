@@ -15,9 +15,10 @@ def buy_collectible():
         return render_template("collectible_response.html", message=message)
     
     user.points -= 100
+    db.session.commit()
     collectibles = db.session.query(Collectible)
     collectibles = [collectible for (collectible) in collectibles]
-    print(collectibles)
+    
     x = randint(1,len(collectibles))
     owned_collectibles = user.Collectible
     owned_collectibles = [collectible_id.collectible_id for collectible_id in owned_collectibles]
