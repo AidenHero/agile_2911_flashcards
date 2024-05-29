@@ -1,131 +1,191 @@
 {% extends "base.html" %}
 {% block head %}
 <style>
-
-    .container{
+    .container {
         width: 100%;
         height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 50px;
     }
-    /* just copy and pasted the buttons from w3 studio, please make this look pretty */
-    .flashcard{
-        display: none;
+
+    p {
+        font-family: 'Arial', sans-serif;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .flashcard {
         margin: auto;
         position: relative;
-        width: 100px;
-        height: 100px;
-        background-color: red;
+        width: 600px;
+        height: 350px;
+        background: linear-gradient(135deg, #618aa9 0%, #4a6e8b 100%);
+        color: white;
         text-align: center;
+        font-size: 24px;
+        border-radius: 10px;
         transform-style: preserve-3d;
-        transition: all 0.8s ease;
+        transition: transform 0.8s ease, box-shadow 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
     }
 
-    .card_front, .card_back{
+    .flashcard:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .card_front, .card_back {
         position: absolute;
         width: 100%;
         height: 100%;
         text-align: center;
-        margin: auto;
         backface-visibility: hidden;
-        /* height: 200px;
-        width:  200px; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+        font-weight: bold;
     }
 
-    .card_back{
-        /* display: none; */
-        transform: rotateX(180deg);
+    .card_back {
+        background-color: #405e77;
+        transform: rotateY(180deg);
     }
 
-    .flipCard{
-        transform: rotateX(180deg);
+    .flipCard {
+        transform: rotateY(180deg);
     }
 
-    .prev,
-    .next {
+    .navigation {
+        display: flex;
+        justify-content: center;
+        width: 150px;
+        margin-top: 20px;
+    }
+
+    .prev, .next {
         cursor: pointer;
-        /* this made the buttons dissapear?? probably don't need it anyway, but hopefully someone who knows what they're doing can explain */
-        position: absolute;
-        top: 40%;
-        width: auto;
-        padding: 16px;
-        margin-top: -50px;
-        color: orange;
+        padding: 10px 20px;
         font-weight: bold;
         font-size: 20px;
-        border-radius: 0 3px 3px 0;
-        /* removed cause i have no idea what this does, and i'm too lazy to look at it */
+        color: white;
+        background-color: #618aa9;
+        border: none;
+        border-radius: 5px;
         user-select: none;
-        -webkit-user-select: none;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        margin: 0 10px;
     }
 
-    /* Position the "next button" to the right */
-    .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
+    .prev:hover, .next:hover {
+        background-color: #4a6e8b;
+        transform: scale(1.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
+
+    .horizontol-nav img {
+        width: 200px;
+        height: auto;
+    }
+    
+    .card-number {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 20px;
+        color: white;
+    }
+    
 </style>
 
 <script>
+    let currentIndex = 1;
+
     const flashcardDisplay = (n) => {
-        // gets all of the flashcards
-        let slides = document.getElementsByClassName("flashcard")
-        // makese it circular. If its at the end and goes forward, goes back to the start, vice versa
-        if (n > slides.length) { n = 1 }
-        if (n < 1) { n = slides.length }
-        // makes every flashcard invisible, then makes the chosen flashcard visible. Does it this way because monkey brain is too dumb to think of a different way to make only the one flashcard visible 
+        let slides = document.getElementsByClassName("flashcard");
+        if (n > slides.length) { currentIndex = 1; }
+        if (n < 1) { currentIndex = slides.length; }
         for (let i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
-        slides[n - 1].style.display = "block";
-
-        // adds an event listener, to actually have the buttons move the flashcard back and forth. Does it inside of the function instead of how w3 did it because global variables are cringe. Once: true deletes the event listener after it has been used, so that there's not multiple event listeners on one button. That breaks the website. 
-        document.getElementById("nbutton").addEventListener("click", function () {
-            flashcardDisplay(n + 1)
-        }, { once: true });
-        document.getElementById("pbutton").addEventListener("click", function () {
-            flashcardDisplay(n - 1)
-        }, { once: true });
-
+        slides[currentIndex - 1].style.display = "flex";
     };
 
+    const showNext = () => {
+        flashcardDisplay(currentIndex += 1);
+    };
+
+    const showPrev = () => {
+        flashcardDisplay(currentIndex -= 1);
+    };
+
+    const toggleFlip = (element) => {
+        element.classList.toggle("flipCard");
+    };
 
     document.addEventListener("DOMContentLoaded", () => {
+        flashcardDisplay(currentIndex);
+
         let cards = document.getElementsByClassName('flashcard');
+        for (let i = 0; i < cards.length; i++) {
+            cards[i].addEventListener("click", () => {
+                toggleFlip(cards[i]);
+            });
 
-        for(let i = 0; i < cards.length; i++)
-        {
-        cards[i].addEventListener("click", () =>{
-            cards[i].classList.toggle("flipCard");
-        });}
-        //this is in a seperate variable, because for some reason whenever i tried to use the jinja variable inside flashcardDisplay directly, it freaks out.  
-        // let thisFlashcard = "{{start_card_index}}" 
-        // flashcardDisplay(parseInt(thisFlashcard))
-        flashcardDisplay(1)
+            let number = document.createElement("div");
+            number.className = "card-number";
+            number.innerText = `${i + 1}/${cards.length}`;
+            cards[i].querySelector('.card_front').appendChild(number);
+        }
+
+        document.getElementById("nbutton").addEventListener("click", showNext);
+        document.getElementById("pbutton").addEventListener("click", showPrev);
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === "Space") {
+                event.preventDefault();
+                toggleFlip(cards[currentIndex - 1]);
+            }
+            if (event.code === "ArrowRight") {
+                showNext();
+            }
+            if (event.code === "ArrowLeft") {
+                showPrev();
+            }
+        });
     });
-
-
 </script>
 {% endblock %}
+
 {% block content %}
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='answering_cards.css') }}">
-</head>
-<h1>Hello</h1>
-    <div class="container">
-        {% if cards is none %}
-            <p> No cards in this set. </p>
-        {% else %}
-            {% for card in cards%}
-            <div class="flashcard">
-                <div class="card_front">
-                    <p>{{card.question}}<p>
-                </div>
-                <div class="card_back">
-                    <p>{{card.answer}}<p>
-                </div>
+<div class="container">
+    <p>Click on the Flashcard or Hit the Spacebar key to Reveal the Answer</p>
+    {% if cards is none %}
+        <p>No cards in this set.</p>
+    {% else %}
+        {% for card in cards %}
+        <div class="flashcard">
+            <div class="card_front">
+                <p>{{ card.question }}</p>
             </div>
-            {% endfor %}
-            <a class="prev" id="pbutton">&#10094;</a>
-            <a class="next" id="nbutton">&#10095;</a>
-        {% endif %}
-    </div>
+            <div class="card_back">
+                <p>{{ card.answer }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="navigation">
+            <button class="prev" id="pbutton">&#10094;</button>
+            <button class="next" id="nbutton">&#10095;</button>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}
