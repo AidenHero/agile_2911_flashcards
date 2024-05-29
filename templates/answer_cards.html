@@ -6,8 +6,6 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='answering_cards.css') }}">
 </head>
-<h1> All Cards </h1>
-<div class="container">
     <div class="flashcard">
         {% if card is none %}
             <p> No cards in this set. </p>
@@ -28,5 +26,4 @@
     <form action="{{ url_for('cards.answer_cards_in_set', set_id = set_id) }}">
     <button>&#10095;</button>
     </form>
-</div>
 {% endblock %}
