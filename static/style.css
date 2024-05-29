@@ -42,7 +42,7 @@
     color: rgb(255, 255, 255);
 }
 
-.logout {
+.horizontol-nav > .Logout {
   position:absolute;
   right: 1.9rem;
   background:rgb(65, 90, 128);
