@@ -1,62 +1,29 @@
 {% extends "base.html" %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='answering_cards.css') }}">
 {% endblock %}
 {% block content %}
 
-<div class="flashcard">
-    {% if card is none %}
-        <p>No cards in this set.</p>
-    {% else %}
-        <span>
-            <p>{{ card.question }}</p>
-            <form method="POST" id="answerForm">
-                <label for="{{ card.flash_id }}">Your answer</label>
-                <input type="text" id="{{ card.flash_id }}" name="{{ card.flash_id }}">
-                <input type="submit">
-            </form>
-            {% if card.flash_id == answered_card_id %}
-            <p>{{ answer }}</p>
-            {% endif %}
-        </span>
-    {% endif %}
-</div>
-<form id="nextForm" action="{{ url_for('cards.answer_cards_in_set', set_id=set_id) }}">
-    <button type="button" id="nextButton" style="display:none;">&#10095;</button>
-</form>
-
-<!-- Popup Modal -->
-<div id="popup" class="popup">
-    <div class="popup-content">
-        <p>Incorrect Answer. Try again!</p>
-        <button id="closePopup">Close</button>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='answering_cards.css') }}">
+</head>
+    <div class="flashcard">
+        {% if card is none %}
+            <p> No cards in this set. </p>
+        {% else %}
+            <span>
+                <p>{{card.question}}</p>
+                <form method="POST">
+                    <label for="{{card.flash_id }}">Your answer</label>
+                    <input type="text" id=" {{card.flash_id }}" name=" {{card.flash_id }}">
+                    <input type="submit">
+                </form>
+                {% if card.flash_id == answered_card_id %}
+                <p>{{ answer }}</p>
+                {% endif %}
+            </span>
+        {% endif %}
     </div>
-</div>
-
-<script>
-document.getElementById('answerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const answer = document.querySelector('input[type="text"]').value;
-    // Replace with actual answer checking logic
-    const isCorrect = checkAnswer(answer);
-
-    if (!isCorrect) {
-        document.getElementById('popup').style.display = 'block';
-    } else {
-        document.getElementById('nextForm').submit();
-    }
-});
-
-document.getElementById('closePopup').addEventListener('click', function() {
-    document.getElementById('popup').style.display = 'none';
-});
-
-function checkAnswer(answer) {
-    // Implement your answer checking logic here
-    // Return true if the answer is correct, else false
-    // Example:
-    return answer === "correct_answer"; // Replace "correct_answer" with actual logic
-}
-</script>
-
+    <form action="{{ url_for('cards.answer_cards_in_set', set_id = set_id) }}">
+    <button>&#10095;</button>
+    </form>
 {% endblock %}
