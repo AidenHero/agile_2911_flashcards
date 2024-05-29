@@ -108,7 +108,6 @@ button:hover {
     width: 100%;
 }
 
-/* Popup Styles */
 .popup {
     display: none;
     position: fixed;
