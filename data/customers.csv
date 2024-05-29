@@ -1,4 +1,4 @@
-name,username,password
-Aiden,AidenHero,aiden123
-Aiden2,aiden.denike@gmail.com,aiden123
-Aiden3,asdf,aiden123
+name,username,password,points
+Aiden,AidenHero,aiden123,0
+Aiden2,aiden.denike@gmail.com,aiden123,0
+Aiden3,asdf,aiden123,6

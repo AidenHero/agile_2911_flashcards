@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cards.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <h1>My Points: {{ user_points }} </h1>
+    <h1>Highest points of all users: {{ max_points }} </h1>
+</body>
+{% endblock %}

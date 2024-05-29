@@ -1,10 +1,17 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from db import db
 from models import Customer, Flashcard, Flashcard_set
+from flask_login import current_user, login_required
+from sqlalchemy import func
 # from flask_login import login_user, login_required, logout_user, current_user
 # from app import app
 
 endpoint = Blueprint('pages', __name__)
+
+def get_user_ids(current_user):
+    user_set_ids = db.session.query(Flashcard_set.set_id).filter_by(customer_id = current_user.id).all()
+    user_set_ids = [set_id for (set_id,) in user_set_ids]
+    return user_set_ids
 
 @endpoint.route('/')
 def homepage():
@@ -18,6 +25,19 @@ def login():
 def show_register_page(): 
     return render_template("register.html")
 
+@endpoint.route('/points', methods=["GET"])
+@login_required
+def show_points_page(): 
+    user_points = db.session.query(Customer.points).filter_by(id = current_user.id).first()
+    # print(user_points)
+    user_points = user_points[0]
+    # print(user_points)
+
+    max_points = db.session.query(func.max(Customer.points)).scalar()
+    # print(max_points)
+    # max_points = max_points[0]
+
+    return render_template("points.html", user_points=user_points, max_points=max_points)
 
 # @endpoint.route('/register', methods=["POST"]) 
 # def register(): 

@@ -180,3 +180,11 @@ def test_card_screen(client, to_login):
     assert b'The Question' in response.data
     assert b'The Answer' in response.data
 
+
+
+## Test quiz features
+
+def test_quiz_invalid_set(client): #tests you get error if you try to view set that does not exist 
+    response = client.get("/answer/90")
+    assert response.status_code == 404
+    # assert b'You are not permitted to view this set.' in response.data
