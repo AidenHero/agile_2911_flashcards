@@ -41,6 +41,11 @@ h1 {
 .card h2 {
     font-size: 24px;
     color: rgba(88, 116, 154, 1);
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 10px 0;
+    padding: 0;
+    max-width: 100%;
 }
 
 .card p {
@@ -48,6 +53,18 @@ h1 {
     padding: 0;
     font-size: 16px;
     color: rgb(82, 82, 82);
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 10px 0;
+    padding: 0;
+    max-width: 100%;
+    flex-grow: 1;
+}
+
+.card p::after {
+    content: '';
+    display: block;
+    margin-bottom: 30px; /* Adjust the margin to provide consistent spacing */
 }
 
 .card-actions {
@@ -55,7 +72,6 @@ h1 {
     bottom: 10px;
     right: 10px;
     display: flex;
-    gap: 10px;
 }
 
 .icon-button {

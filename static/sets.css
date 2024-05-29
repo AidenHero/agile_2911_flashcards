@@ -31,23 +31,45 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 300px;
-    height: 250px;
+    min-height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    max-width: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 10px 0;
+    padding: 16px;
 }
 
 .set-card h2 {
     font-size: 24px;
     color: rgba(88, 116, 154, 1);
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 10px 0;
+    padding: 0;
+    max-width: 100%;
 }
 
+
 .set-card p {
-    margin: 10px 0;
+    margin: 20px 0;
     padding: 0;
     font-size: 16px;
     color: rgb(82, 82, 82);
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 10px 0;
+    max-width: 100%;
+    flex-grow: 1;
+}
+
+.set-card p::after {
+    content: '';
+    display: block;
+    margin-bottom: 30px;
 }
 
 .set-actions {
@@ -56,13 +78,16 @@ h1 {
     right: 10px;
     display: flex;
     gap: 10px;
+    margin-top: auto;
 }
+
 
 .icon-button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 18px;
+    margin-left: 10px;
 }
 
 .trash-icon {
@@ -82,6 +107,25 @@ h1 {
     color: rgb(54, 71, 95);
     background: none;
 }
+
+.pen-nib-icon {
+    color: rgb(75, 91, 136);
+}
+
+.pen-nib-icon:hover {
+    color: rgb(47, 64, 85);
+    background: none;
+}
+
+.pen-ruler-icon {
+    color: rgb(98, 88, 154);
+}
+
+.pen-ruler-icon:hover {
+    color: rgb(79, 54, 95);
+    background: none;
+}
+
 
 .new-set {
     display: flex;
@@ -211,15 +255,15 @@ button:hover {
     border-radius: 8px;
     text-align: center;
     position: relative;
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
 }
 
 .modal-content {
@@ -229,7 +273,7 @@ button:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     width: 80%;
-    margin: 12rem auto; /* Centered */
+    margin: 12rem auto;
     position: relative;
     text-align: center;
 }
