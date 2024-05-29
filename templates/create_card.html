@@ -12,16 +12,18 @@
     <label for="{{ set.set_id }}">{{ set.name }}</label>
     {% endfor %}
     <br> 
-    <br> 
-    <label for="card_question">The Question</label>
-    <input type="text" id="card_question" name="card_question" required>
     <br>
-    <br>
-    <label for="card_answer">The Answer</label>
-    <input type="text" id="card_answer" name="card_answer" required>
-    <br>
-    <br>
-    <label for="submit_card"><input type="submit" id="submit_card" name="submit_card" required></label>
+    <div class="form-group">
+        <label for="card_question" class="custom-label">Question</label>
+        <input type="text" id="card_question" name="card_question" required>
+    </div>
+    <div class="form-group">
+        <label for="card_answer" class="custom-label">Answer</label>
+        <input type="text" id="card_answer" name="card_answer" required>
+    </div>
+    <div class="button-container">
+        <button type="submit">Create</button>
+    </div>
 </form>
 </div>
 {% endblock %}

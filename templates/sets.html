@@ -6,7 +6,7 @@
     <script src="https://kit.fontawesome.com/ef68e7e8d3.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>All Sets</h1>
+    <h1></h1>
     <div class="sets-container">
         {% if sets %}
             {% for set in sets %}
@@ -74,16 +74,15 @@
     function closeCreateSetModal() {
         document.getElementById('createSetModal').style.display = 'none';
     }
-
     document.getElementById('create-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault();
 
         fetch('{{ url_for("api_sets.post_set") }}', {
             method: 'POST',
             body: new FormData(this)
         }).then(response => {
             if (response.ok) {
-                document.getElementById('popup').style.display = 'block';
+                openPopup();
             } else {
                 alert('An error occurred. Please try again.');
             }
@@ -98,6 +97,22 @@
         window.location.href = '{{ url_for("sets.sets_page") }}';
     }
 
+    function openPopup() {
+        document.getElementById('popup').style.display = 'block';
+        setTimeout(closePopup, 900);
+    }
 
+    var modal = document.getElementById('createSetModal');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    });
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
 </script>
 {% endblock %}
