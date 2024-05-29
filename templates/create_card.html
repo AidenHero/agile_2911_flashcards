@@ -3,7 +3,7 @@
 <div class="create_container">
 <form method="POST">
     <head>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_set.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_card.css') }}">
     </head>
     <h1>Create a New Card</h1>
     <h3>Choose a set:</h3>
@@ -13,15 +13,17 @@
     {% endfor %}
     <br> 
     <br> 
-    <label for="card_question">The Question</label>
+    <label for="card_question" class="custom-label">The Question</label>
     <input type="text" id="card_question" name="card_question" required>
     <br>
     <br>
-    <label for="card_answer">The Answer</label>
+    <label for="card_answer" class="custom-label">The Answer</label>
     <input type="text" id="card_answer" name="card_answer" required>
     <br>
     <br>
-    <label for="submit_card"><input type="submit" id="submit_card" name="submit_card" required></label>
+    <div class="button-container">
+        <button type="submit">Submit</button>
+    </div>
 </form>
 </div>
 {% endblock %}
