@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cards.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <h1>Your Collectibles</h1>
+    <div class="cards-container">
+        {% for collectible in collectibles %}
+            <div class="collectible-card">
+                <img src="{{ url_for('static', filename='collectible_' ~ collectible.collectible_id ~ '.png') }}" alt="Collectible Image">
+                <h2>{{ collectible.name }}</h2>
+                <p>{{ collectible.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}

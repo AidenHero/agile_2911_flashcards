@@ -33,7 +33,13 @@ def create_flashcard_database():
             db.session.add(obj)
         db.session.commit()
 
-
+def create_collectible_database():
+    with open("data/collectible.csv", newline="") as csvfile:
+        reader = DictReader(csvfile)
+        for row in reader:
+            obj = Collectible(name=row['name'], description=row['description'])
+            db.session.add(obj)
+        db.session.commit()
 
 if __name__ == "__main__":
     with app.app_context():
@@ -41,7 +47,8 @@ if __name__ == "__main__":
         db.create_all()
         create_customer_database()
         create_flashcard_set_database()
-        create_flashcard_database()        
+        create_flashcard_database() 
+        create_collectible_database()       
         a = Customer_Owned_Collectible(customer_id=1,collectible_id=1)
         db.session.add(a)
         db.session.commit()
