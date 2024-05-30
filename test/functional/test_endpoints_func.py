@@ -119,3 +119,9 @@ def test_logout(client, to_login):
         response = client.get("/logout")
         assert response.status_code == 302
         assert response.headers['Location'] == '/login' 
+
+def test_points_page(client, to_login): # checks if points page loads
+    to_login
+    with client: 
+        response = client.get("/points")
+        assert response.status_code == 200

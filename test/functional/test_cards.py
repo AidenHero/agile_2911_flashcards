@@ -19,7 +19,6 @@ def to_login(client):
             'loginPassword': "aiden123"
         })
 
-
 def test_display_cards_page(client, to_login): # checks if the all cards page displays
     to_login
     response = client.get("/all/cards/")
@@ -30,7 +29,7 @@ def test_display_specific_card_page(client, to_login):
     response = client.get("/all/cards/1") # checks if page for specific card displays
     assert b'Question' in response.data
     assert b'Answer' in response.data
-
+        
 # def test_display_answers_page(client, to_login): # checks if answers page displays
 #     to_login
 #     response = client.get("/all/cards/answer")
@@ -181,10 +180,49 @@ def test_card_screen(client, to_login):
     assert b'The Answer' in response.data
 
 
-
 ## Test quiz features
+def test_view_quiz(client, to_login):
+    to_login
+    response = client.get("/all/cards/quiz/1")
+    assert response.status_code == 200
 
-def test_quiz_invalid_set(client): #tests you get error if you try to view set that does not exist 
+def test_quiz_another_user_set(client): # tests if someone enters set manually into URL that's not their set
+    client.post("login", data={
+        'loginusername': "asdf",
+        'loginPassword': "aiden123"
+    })
+    
+    response = client.get("/all/cards/quiz/1")
+    assert b'You are not permitted to view this set' in response.data
+
+
+## Test answers 
+
+def test_answer_invalid_set(client): #tests you get error if you try to view set that does not exist 
     response = client.get("/answer/90")
     assert response.status_code == 404
     # assert b'You are not permitted to view this set.' in response.data
+
+def test_answer_without_card(client, to_login, context): # tests there will be a prompt that there's no card in set
+    to_login
+    with context:
+        new_set = Flashcard_set(set_id=888, name="Testing Set", customer_id=1, description="Testing Set Description")
+        db.session.add(new_set)
+        db.session.commit()
+
+        response = client.get("/all/cards/answer/888")
+        assert b'No cards in this set' in response.data
+
+        retrieved_set = db.session.execute(db.select(Flashcard_set).where(Flashcard_set.set_id == 888)).scalar()
+        db.session.delete(retrieved_set)
+        db.session.commit() 
+
+def test_answer_another_user_set(client): # tests if someone enters set manually into URL that's not their set
+    client.post("login", data={
+        'loginusername': "asdf",
+        'loginPassword': "aiden123"
+    })
+    
+    response = client.get("/all/cards/answer/1")
+    assert b'You are not permitted to view this set' in response.data
+
